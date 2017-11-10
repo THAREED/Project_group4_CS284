@@ -1,0 +1,4 @@
+Songsak Rongviriyapanish,rongviri@cs.tu.ac.th,songsak,teachersongsak,false,cs284,cs211
+Patcharat Meemano,pat1560@gmail.com,patcharat,teacherpat,false,cs374
+Aiya Sae-ngow,minnie7517_@hotmail.com,minniee,minnieaiya,false,cs101
+Tharee Daengchaisri,tdaengchaisri@gmail.com,b.helloboo,5909610387,true,cs102,cs211,cs213,cs215

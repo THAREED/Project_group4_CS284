@@ -1,0 +1,38 @@
+CS101,Discrete Structures.,100.0,30.0,100.0,50.0,100.0,20.0
+CS102,Computer Programming Fund.,100.0,20.0,100.0,30.0,100.0,50.0
+CS103,Intro. to Computer Programming.,100.0,30.0,100.0,50.0,100.0,20.0
+CS105,Practicum for Structural Programming.,100.0,30.0,100.0,50.0,100.0,20.0
+CS211,Software Development using API.,100.0,20.0,100.0,35.0,100.0,45.0
+CS213,Data Structures.,100.0,30.0,100.0,50.0,100.0,20.0
+CS215,Programming Practicum using API.,100.0,50.0,100.0,20.0,100.0,30.0
+CS223,Computer Organization & Architecture.,100.0,30.0,100.0,50.0,100.0,20.0
+CS275,Human Information Processing.,100.0,30.0,100.0,50.0,100.0,20.0
+CS284,Intro. to Software Engineering.,100.0,30.0,100.0,50.0,100.0,20.0
+CS285,Practices & Patterns in O-O Programming.,100.0,30.0,100.0,50.0,100.0,20.0
+CS286,Software Process & Quality Assurance.,100.0,30.0,100.0,50.0,100.0,20.0
+CS287,Software Requirement Specification and Management.,100.0,30.0,100.0,50.0,100.0,20.0
+CS296,Art and Design Foundations.,100.0,30.0,100.0,50.0,100.0,20.0
+CS297,Fundamental Techniques in Computer Graphics using API.,100.0,30.0,100.0,50.0,100.0,20.0
+CS298,Fundamentals of Computer Graphics.,100.0,30.0,100.0,50.0,100.0,20.0
+CS299,Computer Graphics 1.,100.0,30.0,100.0,50.0,100.0,20.0
+CS300,Seminar in Practical Programming.,100.0,30.0,100.0,50.0,100.0,20.0
+CS301,Computer Science Project Proposal and Presentation.,100.0,30.0,100.0,50.0,100.0,20.0
+CS342,Net-Centric Computing 1.,100.0,30.0,100.0,50.0,100.0,20.0
+CS355,Mobile Application Development.,100.0,30.0,100.0,50.0,100.0,20.0
+CS365,Basic Theory in Artificial Intelligence.,100.0,30.0,100.0,50.0,100.0,20.0
+CS374,Human - Computer Interaction.,100.0,30.0,100.0,50.0,100.0,20.0
+CS387,Software Configuration Management.,100.0,30.0,100.0,50.0,100.0,20.0
+CS396,Computer Graphics Modeling.,100.0,30.0,100.0,50.0,100.0,20.0
+CS401,Special Projects 1.,100.0,30.0,100.0,50.0,100.0,20.0
+CS407,Seminar in Software Engineering.,100.0,30.0,100.0,50.0,100.0,20.0
+CS409,Selected Topics in Computer Science.,100.0,30.0,100.0,50.0,100.0,20.0
+CS427,Parallel Algorithm Designs.,100.0,30.0,100.0,50.0,100.0,20.0
+CS447,Operating Systems 2.,100.0,30.0,100.0,50.0,100.0,20.0
+CS448,Net - Centric Computing 3.,100.0,30.0,100.0,50.0,100.0,20.0
+CS449,Selected Topics in Net-Centric Computing.,100.0,30.0,100.0,50.0,100.0,20.0
+CS456,Management Information Systems.,100.0,30.0,100.0,50.0,100.0,20.0
+CS457,Database Systems 2.,100.0,30.0,100.0,50.0,100.0,20.0
+CS465,Advanced Search Strategies.,100.0,30.0,100.0,50.0,100.0,20.0
+CS479,Selected Topics in Multimedia Content Analysis.,100.0,30.0,100.0,50.0,100.0,20.0
+CS488,Formal Methods.,100.0,30.0,100.0,50.0,100.0,20.0
+CS498,Game Programming.,100.0,30.0,100.0,50.0,100.0,20.0
