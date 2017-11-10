@@ -54,7 +54,7 @@ public class ProfileController
 			{
 				cnt++;
 			}
-			else if(emailForm3.equals(".co.th"))
+			else if(emailForm3.equals(".co.th")|| emailForm3.equals(".ac.th"))
 			{
 				cnt++;
 			}
