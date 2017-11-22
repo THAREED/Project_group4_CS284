@@ -8,7 +8,6 @@ import javax.swing.JOptionPane;
 import model.Course;
 import model.CourseList;
 import model.DetailException;
-import model.Member;
 
 public class DetailController 
 {

@@ -1,24 +1,4 @@
 package model;
-import java.awt.BorderLayout;
-import java.awt.event.KeyAdapter;
-import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
-import java.io.IOException;
-import java.util.ArrayList;
-
-import javax.swing.BorderFactory;
-import javax.swing.JFrame;
-import javax.swing.JLabel;
-import javax.swing.JList;
-import javax.swing.JPanel;
-import javax.swing.JScrollPane;
-import javax.swing.JSlider;
-import javax.swing.JTable;
-import javax.swing.ListModel;
-import javax.swing.border.TitledBorder;
 
 public class Course
 {
@@ -38,8 +18,7 @@ public class Course
 		this.midAcc = midAcc;
 		this.finalFull = finalFull;
 		this.finalAcc = finalAcc;
-	}
-	
+	}	
 	
 	public String getCourseID() {
 		return courseID;

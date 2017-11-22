@@ -80,13 +80,24 @@ public class StudentList
 				String id = info[1];
 				String name = info[2];
 				String category = info[3];
-				boolean status = false;
-				if(info[4].equalsIgnoreCase("Credit "))
-				{
-					status = true;
-				}
+				String status = info[4];
 				studentList.add(new Student(number, id, name, category, status));
 			}		
+			if(info.length == 11)
+			{
+				int number = Integer.valueOf(info[0]);
+				String id = info[1];
+				String name = info[2];
+				String category = info[3];
+				String status = info[4];
+				double assFull = Double.valueOf(info[5]);
+				double midFull = Double.valueOf(info[6]);
+				double finalFull = Double.valueOf(info[7]);
+				double assAcc = Double.valueOf(info[8]);
+				double midAcc = Double.valueOf(info[9]);
+				double finalAcc = Double.valueOf(info[10]);
+				studentList.add(new Student(number, id, name, category, status, assFull, midFull, finalFull, assAcc, midAcc, finalAcc));
+			}	
 		}		
 		saveList();
 	}
@@ -100,18 +111,20 @@ public class StudentList
 			while(str != null)
 			{
 				String info[] = str.toString().split(",");
-				if(info.length == 5)
+				if(info.length == 11)
 				{
 					int number = Integer.valueOf(info[0]);
 					String id = info[1];
 					String name = info[2];
 					String category = info[3];
-					boolean status = false;
-					if(info[4].equalsIgnoreCase("Credit "))
-					{
-						status = true;
-					}
-					studentList.add(new Student(number, id, name, category, status));
+					String status = info[4];
+					double assFull = Double.valueOf(info[5]);
+					double midFull = Double.valueOf(info[6]);
+					double finalFull = Double.valueOf(info[7]);
+					double assAcc = Double.valueOf(info[8]);
+					double midAcc = Double.valueOf(info[9]);
+					double finalAcc = Double.valueOf(info[10]);
+					studentList.add(new Student(number, id, name, category, status, assFull, midFull, finalFull, assAcc, midAcc, finalAcc));
 				}	
 				str = reader.readLine();
 			}
@@ -158,7 +171,4 @@ public class StudentList
 	{
 		return studentList.size();
 	}
-
-	
-	
 }

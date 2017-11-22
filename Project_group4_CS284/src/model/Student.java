@@ -3,13 +3,12 @@ package model;
 public class Student 
 {
 	private int number;
-	private String id, name, category;
-	private boolean status;
+	private String id, name, category, status;
 	private String email;
 	private double assFull , assAcc;
 	private double midFull , midAcc;
 	private double finalFull , finalAcc;
-	public Student(int number, String id, String name, String category, boolean status) 
+	public Student(int number, String id, String name, String category, String status) 
 	{
 		this.number = number;
 		this.id = id;
@@ -17,13 +16,23 @@ public class Student
 		this.category = category;
 		this.status = status;	
 		this.email = null;
-		this.assFull = 0;
-		this.assAcc = 0;
-		this.midFull = 0;
-		this.midAcc = 0;
-		this.finalFull = 0;
-		this.finalAcc = 0;
 	}
+	public Student(int number, String id, String name, String category, String status, double assFull, double midFull, double finalFull, double assAcc, double midAcc, double finalAcc) 
+	{
+		this.number = number;
+		this.id = id;
+		this.name = name;
+		this.category = category;
+		this.status = status;	
+		this.email = null;
+		this.assFull = assFull;
+		this.assAcc = assAcc;
+		this.midFull = midFull;
+		this.midAcc = midAcc;
+		this.finalFull = finalFull;
+		this.finalAcc = finalAcc;
+	}
+	
 
 	public int getNumber() 
 	{
@@ -65,12 +74,12 @@ public class Student
 		this.category = category;
 	}
 
-	public boolean isStatus() 
+	public String getStatus() 
 	{
 		return status;
 	}
 
-	public void setStatus(boolean status) 
+	public void setStatus(String status) 
 	{
 		this.status = status;
 	}
@@ -84,10 +93,9 @@ public class Student
 	{
 		this.email = email;
 	}
-
 	public String toString()
 	{
-		return getNumber()+","+getId()+","+getName()+","+getCategory()+","+isStatus()+"\n";
+		return getNumber()+","+getId()+","+getName()+","+getCategory()+","+getStatus()+","+getAssFull()+","+getMidFull()+","+getFinalFull()+","+getAssAcc()+","+getMidAcc()+","+getFinalAcc()+"\n";
 	}
 	public double getAssFull() {
 		return assFull;
