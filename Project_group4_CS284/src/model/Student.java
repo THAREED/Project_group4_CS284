@@ -133,5 +133,7 @@ public class Student
 	public void setFinalAcc(double finalAcc) {
 		this.finalAcc = finalAcc;
 	}
-
+	public double getTotalScore() {
+		return assAcc+midAcc+finalAcc;
+	}
 }

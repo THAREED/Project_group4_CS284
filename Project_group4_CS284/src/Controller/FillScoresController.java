@@ -51,8 +51,9 @@ public class FillScoresController extends JPanel
 			data[i][5] = studentList.getIndex(i).getAssAcc();
 			data[i][6] = studentList.getIndex(i).getMidAcc();
 			data[i][7] = studentList.getIndex(i).getFinalAcc();
-			data[i][8] = studentList.getIndex(i).getAssAcc() + studentList.getIndex(i).getMidAcc()
-					+ studentList.getIndex(i).getFinalAcc();
+		//	data[i][8] = studentList.getIndex(i).getAssAcc() + studentList.getIndex(i).getMidAcc()
+		//			+ studentList.getIndex(i).getFinalAcc();
+			data[i][8] = studentList.getIndex(i).getTotalScore();
 		}
 
 		table = new JTable(data, columnNames);
@@ -122,8 +123,6 @@ public class FillScoresController extends JPanel
 				studentList.getIndex(i).setMidFull(midFull);
 				studentList.getIndex(i).setFinalFull(finalFull);
 			} catch (NumberFormatException | DetailException ex) {
-
-			//	update = false;
 				setUpdate(false);
 				table.setValueAt(studentList.getIndex(i).getAssFull(), i, 2);
 				table.setValueAt(studentList.getIndex(i).getMidFull(), i, 3);

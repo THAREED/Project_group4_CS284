@@ -55,7 +55,7 @@ public class FillScoresFrame extends JFrame {
 			}
 		}
 		showDownPage();
-		setLocation(100, 100);
+		setLocation(300, 100);
 		pack();
 	}
 
@@ -178,7 +178,9 @@ public class FillScoresFrame extends JFrame {
 				fillScoresController.calculate();
 				fillScoresController.updateTable();
 				if (e.getActionCommand().equals("Next")) {
-
+					dispose();
+					//	new EmailFrame(member, course);
+				
 				}
 
 			}
