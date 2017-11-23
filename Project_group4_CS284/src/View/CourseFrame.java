@@ -156,5 +156,12 @@ public class CourseFrame extends JFrame
 		subject = new JList<String>(mySubject);
 		mini.add(subject);
 	}
-
+	public static void main(String[] args) {
+		try {
+			new CourseFrame(new MemberList().getMemberList(3));
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
 }
