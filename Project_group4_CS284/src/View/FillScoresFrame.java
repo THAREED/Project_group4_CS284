@@ -55,7 +55,7 @@ public class FillScoresFrame extends JFrame {
 			}
 		}
 		showDownPage();
-		setLocation(300, 100);
+		setLocation(100, 100);
 		pack();
 	}
 
@@ -100,6 +100,7 @@ public class FillScoresFrame extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				dispose();
 				try {
+					dispose();
 					new DetailFrame(member, course);
 				} catch (IOException e1) {
 					e1.printStackTrace();
@@ -178,9 +179,14 @@ public class FillScoresFrame extends JFrame {
 				fillScoresController.calculate();
 				fillScoresController.updateTable();
 				if (e.getActionCommand().equals("Next")) {
-					dispose();
-					//	new EmailFrame(member, course);
-				
+					try {
+						dispose();
+						new SettingGradFrame(member, course, file);
+					} catch (IOException e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
+					}
+
 				}
 
 			}

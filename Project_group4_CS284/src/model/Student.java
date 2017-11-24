@@ -4,7 +4,7 @@ public class Student
 {
 	private int number;
 	private String id, name, category, status;
-	private String email;
+	private String email , grad;
 	private double assFull , assAcc;
 	private double midFull , midAcc;
 	private double finalFull , finalAcc;
@@ -25,6 +25,7 @@ public class Student
 		this.category = category;
 		this.status = status;	
 		this.email = null;
+		this.grad = null;
 		this.assFull = assFull;
 		this.assAcc = assAcc;
 		this.midFull = midFull;
@@ -135,5 +136,12 @@ public class Student
 	}
 	public double getTotalScore() {
 		return assAcc+midAcc+finalAcc;
+	}
+	
+	public String getGrad(){
+		return  grad;
+	}
+	public void setGrad(String grad) {
+		this.grad = grad;
 	}
 }

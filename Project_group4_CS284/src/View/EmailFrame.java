@@ -35,6 +35,7 @@ public class EmailFrame extends JFrame
 	private Member member;
 	private Course course;
 	private StudentList studentList;
+	private SettingGradFrame setting;
 	private Object[][] data;
 	private JTable table;
 	private File file;
@@ -43,9 +44,13 @@ public class EmailFrame extends JFrame
 		this.member = member;
 		this.course = course;
 		studentList = new StudentList(member, course);
+		file = new File( "TotalGrade" + "List.txt" );
+		setting = new SettingGradFrame(member, course, file);
+		
 		showTopPage();
 		setCenterPage();
 		getEmailStudentFromFile();
+		getGradeStudentFromFile();
 		showDownPage();
 		
 		setTitle("Transmission of email and file.");
@@ -69,7 +74,7 @@ public class EmailFrame extends JFrame
 			data[i][2] = studentList.getIndex(i).getEmail();
 			double total =studentList.getIndex(i).getAssAcc() + studentList.getIndex(i).getMidAcc() + studentList.getIndex(i).getFinalAcc();
 			data[i][3] = studentList.getIndex(i).getTotalScore();
-			data[i][4] = '-';
+			data[i][4] = studentList.getIndex(i).getGrad();
 		}
 
 		table = new JTable(data, columnNames);
@@ -121,7 +126,8 @@ public class EmailFrame extends JFrame
 					table.setValueAt(studentList.getIndex(j).getEmail(), j, 2);
 				}					
 			}		
-		}		
+		}	
+		listStr.clear();
 	}
 	public void showTopPage() throws IOException {
 		JPanel usrePanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
@@ -150,8 +156,15 @@ public class EmailFrame extends JFrame
 	
 		back.addActionListener(new ActionListener() {
 			@Override
-			public void actionPerformed(ActionEvent e) {
-		
+			public void actionPerformed(ActionEvent e) 
+			{
+				try {
+					dispose();
+					new SettingGradFrame(member, course, file);
+				} catch (IOException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}	
 			}
 		});
 		JMenuItem profile = new JMenuItem("Profile");
@@ -212,6 +225,50 @@ public class EmailFrame extends JFrame
 		panel.add(convertToExelButton);
 		add(panel, BorderLayout.SOUTH);
 
+	}
+	ArrayList<String> listGrade = new ArrayList<String>();
+	public void getGradeStudentFromFile()
+	{
+		try
+		{
+			File file = new File("TotalGradeList.txt");
+			FileReader fileReader = new FileReader(file);
+			BufferedReader reader = new BufferedReader(fileReader);
+			String str = reader.readLine();
+			while(str != null)
+			{
+				listGrade.add(str);
+				str = reader.readLine();
+			}			
+			reader.close();
+			fileReader.close();
+			setGradeStudent();
+		}
+		catch (FileNotFoundException e) 
+		{
+			System.out.println(e.getMessage());
+		}
+		catch (IOException e) 
+		{
+			System.out.println(e.getMessage());
+		}
+	}
+	public void setGradeStudent()
+	{
+		for (int i = 0; i < listGrade.size(); i++) 
+		{
+			String info[] = listGrade.get(i).split(" ");
+			//System.out.println(info[i]);
+			for (int j = 0; j < studentList.getSize(); j++) 
+			{
+				if(info[0].equalsIgnoreCase(studentList.getIndex(j).getId()))
+				{
+					studentList.getIndex(j).setGrad(info[1]);
+					table.setValueAt(studentList.getIndex(j).getGrad(), j, 4);
+				}					
+			}		
+		}
+		listGrade.clear();
 	}
 
 

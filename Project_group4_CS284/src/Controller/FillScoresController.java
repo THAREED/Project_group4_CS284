@@ -1,8 +1,10 @@
 package Controller;
 
 import java.awt.BorderLayout;
+
 import java.awt.Color;
 import java.io.File;
+import java.io.IOException;
 
 import javax.swing.BoxLayout;
 import javax.swing.ImageIcon;
@@ -11,6 +13,7 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 
+import View.SettingGradFrame;
 import model.Course;
 import model.DetailException;
 import model.Member;
@@ -25,9 +28,11 @@ public class FillScoresController extends JPanel
 	private JTable table;
 	private File file;
 	private boolean update;
-	public FillScoresController(Member member, Course course, File file) 
+	private SettingGradFrame  settingGrade;
+	public FillScoresController(Member member, Course course, File file) throws IOException 
 	{
 		studentList = new StudentList(member, course);
+		//settingGrade = new SettingGradFrame(member, course);
 		this.file = file;
 		this.update = true;
 		this.member = member;
@@ -51,9 +56,8 @@ public class FillScoresController extends JPanel
 			data[i][5] = studentList.getIndex(i).getAssAcc();
 			data[i][6] = studentList.getIndex(i).getMidAcc();
 			data[i][7] = studentList.getIndex(i).getFinalAcc();
-		//	data[i][8] = studentList.getIndex(i).getAssAcc() + studentList.getIndex(i).getMidAcc()
-		//			+ studentList.getIndex(i).getFinalAcc();
-			data[i][8] = studentList.getIndex(i).getTotalScore();
+			data[i][8] = studentList.getIndex(i).getAssAcc() + studentList.getIndex(i).getMidAcc()
+					+ studentList.getIndex(i).getFinalAcc();
 		}
 
 		table = new JTable(data, columnNames);
@@ -123,6 +127,8 @@ public class FillScoresController extends JPanel
 				studentList.getIndex(i).setMidFull(midFull);
 				studentList.getIndex(i).setFinalFull(finalFull);
 			} catch (NumberFormatException | DetailException ex) {
+
+			//	update = false;
 				setUpdate(false);
 				table.setValueAt(studentList.getIndex(i).getAssFull(), i, 2);
 				table.setValueAt(studentList.getIndex(i).getMidFull(), i, 3);
