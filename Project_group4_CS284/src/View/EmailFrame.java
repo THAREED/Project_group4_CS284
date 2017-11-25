@@ -2,6 +2,7 @@ package View;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.EventQueue;
 import java.awt.FlowLayout;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
@@ -22,10 +23,13 @@ import javax.swing.JLabel;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 
+import Controller.OnSuccessListener;
+import Controller.SendMailController;
 import model.Course;
 import model.Member;
 import model.StudentList;
@@ -45,7 +49,7 @@ public class EmailFrame extends JFrame
 		this.course = course;
 		studentList = new StudentList(member, course);
 		file = new File( "TotalGrade" + "List.txt" );
-		setting = new SettingGradFrame(member, course, file);
+		//setting = new SettingGradFrame(member, course, file);
 		
 		showTopPage();
 		setCenterPage();
@@ -72,7 +76,6 @@ public class EmailFrame extends JFrame
 			data[i][0] = studentList.getIndex(i).getNumber();
 			data[i][1] = studentList.getIndex(i).getId();
 			data[i][2] = studentList.getIndex(i).getEmail();
-			double total =studentList.getIndex(i).getAssAcc() + studentList.getIndex(i).getMidAcc() + studentList.getIndex(i).getFinalAcc();
 			data[i][3] = studentList.getIndex(i).getTotalScore();
 			data[i][4] = studentList.getIndex(i).getGrad();
 		}
@@ -160,7 +163,8 @@ public class EmailFrame extends JFrame
 			{
 				try {
 					dispose();
-					new SettingGradFrame(member, course, file);
+					SettingGradFrame set = new SettingGradFrame(member, course, new File("emailStudent.txt"));
+					set.setttt();
 				} catch (IOException e1) {
 					// TODO Auto-generated catch block
 					e1.printStackTrace();
@@ -206,6 +210,9 @@ public class EmailFrame extends JFrame
 			@Override
 			public void actionPerformed(ActionEvent e)
 			{
+				dispose();
+				new ProgressBarFrame(member,course,file);
+				
 				/// send email to student				
 			}
 		});
@@ -258,7 +265,6 @@ public class EmailFrame extends JFrame
 		for (int i = 0; i < listGrade.size(); i++) 
 		{
 			String info[] = listGrade.get(i).split(" ");
-			//System.out.println(info[i]);
 			for (int j = 0; j < studentList.getSize(); j++) 
 			{
 				if(info[0].equalsIgnoreCase(studentList.getIndex(j).getId()))
@@ -269,7 +275,10 @@ public class EmailFrame extends JFrame
 			}		
 		}
 		listGrade.clear();
+
 	}
+	
+	
 
 
 }

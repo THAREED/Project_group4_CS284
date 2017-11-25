@@ -68,6 +68,7 @@ public class SettingGradFrame extends JFrame implements ActionListener {
 		this.course = course;
 		studentList = new StudentList(member, course);
 		studentList.setStudentShowInFill(file);
+		
 
 		mainPanel = new JPanel(new BorderLayout());
 		mainPanel.setBorder(BorderFactory.createTitledBorder(BorderFactory.createRaisedBevelBorder(), "Setting Grad"));
@@ -184,6 +185,7 @@ public class SettingGradFrame extends JFrame implements ActionListener {
 		String[] d = dTxt.getText().split("-");
 		String[] f = fTxt.getText().split("-");
 		if (e.getActionCommand().equals("Calculate")) {
+		/*	dispose();
 			setTxtEditableFalse();
 			sumGrade = new String[studentList.getSize()];
 			for (int i = 0; i < studentList.getSize(); i++) {
@@ -204,15 +206,52 @@ public class SettingGradFrame extends JFrame implements ActionListener {
 				} else if (studentList.getIndex(i).getTotalScore() >= Integer.valueOf(f[0])) {
 					sumGrade[i] = studentList.getIndex(i).getId() + " F";
 				}
-			}
-			saveGrade();
+			}*/
+			setttt();
+			
+			
 		}
-		dispose();
+		
 		try {
+			dispose();
 			new EmailFrame(member, course);
 		} catch (IOException e1) {
 			e1.printStackTrace();
 		}
+	}
+	public void setttt()
+	{
+		String[] a = aTxt.getText().split("-");
+		String[] bb = bTxt.getText().split("-");
+		String[] b = bbTxt.getText().split("-");
+		String[] cc = ccTxt.getText().split("-");
+		String[] c = cTxt.getText().split("-");
+		String[] dd = ddTxt.getText().split("-");
+		String[] d = dTxt.getText().split("-");
+		String[] f = fTxt.getText().split("-");
+		dispose();
+		setTxtEditableFalse();
+		sumGrade = new String[studentList.getSize()];
+		for (int i = 0; i < studentList.getSize(); i++) {
+			if (studentList.getIndex(i).getTotalScore() >= Integer.valueOf(a[0])) {
+				sumGrade[i] = studentList.getIndex(i).getId() + " A";
+			} else if (studentList.getIndex(i).getTotalScore() >= Integer.valueOf(bb[0])) {
+				sumGrade[i] = studentList.getIndex(i).getId() + " B+";
+			} else if (studentList.getIndex(i).getTotalScore() >= Integer.valueOf(b[0])) {
+				sumGrade[i] = studentList.getIndex(i).getId() + " B";
+			} else if (studentList.getIndex(i).getTotalScore() >= Integer.valueOf(cc[0])) {
+				sumGrade[i] = studentList.getIndex(i).getId() + " C+";
+			} else if (studentList.getIndex(i).getTotalScore() >= Integer.valueOf(c[0])) {
+				sumGrade[i] = studentList.getIndex(i).getId() + " C";
+			} else if (studentList.getIndex(i).getTotalScore() >= Integer.valueOf(dd[0])) {
+				sumGrade[i] = studentList.getIndex(i).getId() + " D+";
+			} else if (studentList.getIndex(i).getTotalScore() >= Integer.valueOf(d[0])) {
+				sumGrade[i] = studentList.getIndex(i).getId() + " D";
+			} else if (studentList.getIndex(i).getTotalScore() >= Integer.valueOf(f[0])) {
+				sumGrade[i] = studentList.getIndex(i).getId() + " F";
+			}
+		}
+		saveGrade();
 	}
 
 	public void setValueGrade() {
@@ -345,8 +384,29 @@ public class SettingGradFrame extends JFrame implements ActionListener {
 	}
 
 	public boolean saveGrade() {
-		try {
-			FileWriter fileWriter = new FileWriter(new File("TotalGrade" + "List.txt"), false);
+		try
+		{
+			FileWriter fileWriter = new FileWriter(new File("TotalGrade"+"List.txt"),false);
+			PrintWriter writer = new PrintWriter(fileWriter);
+			for (int i = 0; i < studentList.getSize(); i++) 
+			{
+				writer.println(sumGrade[i]);	
+			}		
+			writer.close();
+			fileWriter.close();
+			/*member.setImportClassList(true);
+			MemberList mList = new MemberList();
+			mList.updateFile(member);*/
+			return true;
+		}
+		catch (IOException e) 
+		{
+			JOptionPane.showMessageDialog(null, e.getMessage(),"Message",JOptionPane.INFORMATION_MESSAGE,new ImageIcon("exceptionIcon.png"));
+			return false;
+		}
+	}
+		/*try {
+			FileWriter fileWriter = new FileWriter(new File(member.getUsername() + "_" + course.getCourseName() +"TotalGrade" + "List.txt"), false);
 			PrintWriter writer = new PrintWriter(fileWriter);
 			for (int i = 0; i < studentList.getSize(); i++) {
 				System.out.println(sumGrade[i]);
@@ -361,6 +421,6 @@ public class SettingGradFrame extends JFrame implements ActionListener {
 					new ImageIcon("exceptionIcon.png"));
 			return false;
 		}
-	}
+	}*/
 
 }
