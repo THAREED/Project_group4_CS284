@@ -17,6 +17,7 @@ import javax.swing.JLabel;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
 import Controller.FillScoresController;
@@ -83,35 +84,16 @@ public class FillScoresFrame extends JFrame {
 		JMenu menu = new JMenu("Menu");
 		JMenuItem logOut = new JMenuItem("Log out");
 		JMenuItem back = new JMenuItem("Back");
-		JMenuItem importFile = new JMenuItem("Import file student list (.csv)");
-		importFile.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				StudentList list = new StudentList(member, course);
-				if (list.loadList()) {
-					list.setStudentList();
-				}
-
-			}
-		});
-
+	
 		back.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				dispose();
-				try {
-					dispose();
-					new DetailFrame(member, course);
-				} catch (IOException e1) {
-					e1.printStackTrace();
-				}
 			}
 		});
 		JMenuItem profile = new JMenuItem("Profile");
 		bar.add(menu);
 		menu.add(profile);
-		menu.addSeparator();
-		menu.add(importFile);
 		menu.addSeparator();
 		menu.add(back);
 		menu.addSeparator();
@@ -170,20 +152,34 @@ public class FillScoresFrame extends JFrame {
 		calculateButton.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				if (e.getActionCommand().equals("Calculate")) {
-					settingButton.setEnabled(false);
-					fillScoresController.setEnabled(false);
-
-					calculateButton.setText("Next");
+				if (e.getActionCommand().equals("Calculate")) 
+				{
+					if(settingButton.getActionCommand().equals("Save"))
+					{
+						JOptionPane.showMessageDialog(null, "       Save update score.","Message",JOptionPane.INFORMATION_MESSAGE,new ImageIcon(this.getClass().getResource("/gearsIcon.png")));
+						fillScoresController.fillScore();
+						studentList.saveList();
+						fillScoresController.setEnabled(false);
+						settingButton.setText("Setting");
+					}
+					else
+					{
+						settingButton.setEnabled(false);
+						fillScoresController.setEnabled(false);
+						calculateButton.setText("Next");
+					}
 				}
+			
 				fillScoresController.calculate();
 				fillScoresController.updateTable();
-				if (e.getActionCommand().equals("Next")) {
-					try {
+				if (e.getActionCommand().equals("Next")) 
+				{
+					try 
+					{
 						dispose();
 						new SettingGradFrame(member, course, file);
-					} catch (IOException e1) {
-						// TODO Auto-generated catch block
+					} catch (IOException e1) 
+					{
 						e1.printStackTrace();
 					}
 

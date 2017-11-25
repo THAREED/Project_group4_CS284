@@ -2,17 +2,12 @@ package View;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
-import java.awt.EventQueue;
 import java.awt.FlowLayout;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.io.BufferedReader;
 import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
 import java.io.IOException;
-import java.util.ArrayList;
 
 import javax.swing.BorderFactory;
 import javax.swing.BoxLayout;
@@ -23,13 +18,11 @@ import javax.swing.JLabel;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
-import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 
-import Controller.OnSuccessListener;
-import Controller.SendMailController;
+import Controller.CastToExcelFile;
 import model.Course;
 import model.Member;
 import model.StudentList;
@@ -39,7 +32,6 @@ public class EmailFrame extends JFrame
 	private Member member;
 	private Course course;
 	private StudentList studentList;
-	private SettingGradFrame setting;
 	private Object[][] data;
 	private JTable table;
 	private File file;
@@ -49,12 +41,12 @@ public class EmailFrame extends JFrame
 		this.course = course;
 		studentList = new StudentList(member, course);
 		file = new File( "TotalGrade" + "List.txt" );
-		//setting = new SettingGradFrame(member, course, file);
 		
 		showTopPage();
 		setCenterPage();
-		getEmailStudentFromFile();
-		getGradeStudentFromFile();
+		studentList.getEmailStudentFromFile();
+		studentList.getGradeStudentFromFile();
+		showGradeStudent();
 		showDownPage();
 		
 		setTitle("Transmission of email and file.");
@@ -88,49 +80,6 @@ public class EmailFrame extends JFrame
 		table.setGridColor(new Color(179, 235, 255));
 		table.setEnabled(false);
 		this.add(centerPanel, BorderLayout.CENTER);
-	}
-	ArrayList<String> listStr = new ArrayList<String>();
-	public void getEmailStudentFromFile()
-	{
-		try
-		{
-			File file = new File("emailStudent.txt");
-			FileReader fileReader = new FileReader(file);
-			BufferedReader reader = new BufferedReader(fileReader);
-			String str = reader.readLine();
-			while(str != null)
-			{
-				listStr.add(str);
-				str = reader.readLine();
-			}			
-			reader.close();
-			fileReader.close();
-			setEmailStudent();
-		}
-		catch (FileNotFoundException e) 
-		{
-			System.out.println(e.getMessage());
-		}
-		catch (IOException e) 
-		{
-			System.out.println(e.getMessage());
-		}
-	}
-	public void setEmailStudent()
-	{
-		for (int i = 0; i < listStr.size(); i++) 
-		{
-			String info[] = listStr.get(i).split(",");
-			for (int j = 0; j < studentList.getSize(); j++) 
-			{
-				if(info[0].equalsIgnoreCase(studentList.getIndex(j).getId()))
-				{
-					studentList.getIndex(j).setEmail(info[1]);
-					table.setValueAt(studentList.getIndex(j).getEmail(), j, 2);
-				}					
-			}		
-		}	
-		listStr.clear();
 	}
 	public void showTopPage() throws IOException {
 		JPanel usrePanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
@@ -166,7 +115,6 @@ public class EmailFrame extends JFrame
 					SettingGradFrame set = new SettingGradFrame(member, course, new File("emailStudent.txt"));
 					set.setttt();
 				} catch (IOException e1) {
-					// TODO Auto-generated catch block
 					e1.printStackTrace();
 				}	
 			}
@@ -224,7 +172,7 @@ public class EmailFrame extends JFrame
 			public void actionPerformed(ActionEvent e) 
 			{
 				//// convert to exel file
-
+				new CastToExcelFile(member, course);
 			}
 
 		});
@@ -233,49 +181,12 @@ public class EmailFrame extends JFrame
 		add(panel, BorderLayout.SOUTH);
 
 	}
-	ArrayList<String> listGrade = new ArrayList<String>();
-	public void getGradeStudentFromFile()
+	public void showGradeStudent()
 	{
-		try
+		for (int i = 0; i < studentList.getSize(); i++) 
 		{
-			File file = new File("TotalGradeList.txt");
-			FileReader fileReader = new FileReader(file);
-			BufferedReader reader = new BufferedReader(fileReader);
-			String str = reader.readLine();
-			while(str != null)
-			{
-				listGrade.add(str);
-				str = reader.readLine();
-			}			
-			reader.close();
-			fileReader.close();
-			setGradeStudent();
+			table.setValueAt(studentList.getIndex(i).getGrad(), i, 4);
 		}
-		catch (FileNotFoundException e) 
-		{
-			System.out.println(e.getMessage());
-		}
-		catch (IOException e) 
-		{
-			System.out.println(e.getMessage());
-		}
-	}
-	public void setGradeStudent()
-	{
-		for (int i = 0; i < listGrade.size(); i++) 
-		{
-			String info[] = listGrade.get(i).split(" ");
-			for (int j = 0; j < studentList.getSize(); j++) 
-			{
-				if(info[0].equalsIgnoreCase(studentList.getIndex(j).getId()))
-				{
-					studentList.getIndex(j).setGrad(info[1]);
-					table.setValueAt(studentList.getIndex(j).getGrad(), j, 4);
-				}					
-			}		
-		}
-		listGrade.clear();
-
 	}
 	
 	

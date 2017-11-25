@@ -9,12 +9,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
-import java.io.BufferedReader;
 import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.io.IOException;
-import java.util.ArrayList;
 import java.util.Random;
 
 import javax.swing.ImageIcon;
@@ -82,9 +77,7 @@ public class ProgressBarFrame extends JFrame {
 
 						try {
 
-							UIManager.setLookAndFeel(UIManager
-
-									.getSystemLookAndFeelClassName());
+							UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
 
 						} catch (Exception ex) {
 
@@ -109,12 +102,9 @@ public class ProgressBarFrame extends JFrame {
 		studentList = new StudentList(member, course);
 		file = new File(member.getUsername() + "_" + course.getCourseName() + "List.txt");
 		studentList.setStudentShowInFill(file);
-		getGradeStudentFromFile();
-		getEmailStudentFromFile();
-		/*for (int i = 0; i < studentList.getSize(); i++) {
-			System.out.println(studentList.getIndex(i).getEmail());
-		}
-	*/
+		studentList.getGradeStudentFromFile();
+		studentList.getEmailStudentFromFile();
+
 	}
 
 	public class BackgroundWorker extends SwingWorker<Void, Void> {
@@ -192,8 +182,6 @@ public class ProgressBarFrame extends JFrame {
 				ImageIcon icon = new ImageIcon(this.getClass().getResource("/email.png"));
 				JOptionPane.showMessageDialog(null, "Send mail is successfully!!!", null ,JOptionPane.INFORMATION_MESSAGE,icon);
 				System.exit(0);
-			
-
 			}
 
 		}
@@ -241,91 +229,6 @@ public class ProgressBarFrame extends JFrame {
 					});
 		}*/
 
-	}
-	ArrayList<String> listGrade = new ArrayList<String>();
-	public void getGradeStudentFromFile()
-	{
-		try
-		{
-			File file = new File("TotalGradeList.txt");
-			FileReader fileReader = new FileReader(file);
-			BufferedReader reader = new BufferedReader(fileReader);
-			String str = reader.readLine();
-			while(str != null)
-			{
-				listGrade.add(str);
-				str = reader.readLine();
-			}			
-			reader.close();
-			fileReader.close();
-			setGradeStudent();
-		}
-		catch (FileNotFoundException e) 
-		{
-			System.out.println(e.getMessage());
-		}
-		catch (IOException e) 
-		{
-			System.out.println(e.getMessage());
-		}
-	}
-	public void setGradeStudent()
-	{
-		for (int i = 0; i < listGrade.size(); i++) 
-		{
-			String info[] = listGrade.get(i).split(" ");
-			for (int j = 0; j < studentList.getSize(); j++) 
-			{
-				if(info[0].equalsIgnoreCase(studentList.getIndex(j).getId()))
-				{
-					studentList.getIndex(j).setGrad(info[1]);
-				}					
-			}		
-		}
-		listGrade.clear();
-
-	}
-	ArrayList<String> listStr = new ArrayList<String>();
-	public void getEmailStudentFromFile()
-	{
-		try
-		{
-			File file = new File("emailStudent.txt");
-			FileReader fileReader = new FileReader(file);
-			BufferedReader reader = new BufferedReader(fileReader);
-			String str = reader.readLine();
-			while(str != null)
-			{
-				listStr.add(str);
-				str = reader.readLine();
-			}			
-			reader.close();
-			fileReader.close();
-			setEmailStudent();
-		}
-		catch (FileNotFoundException e) 
-		{
-			System.out.println(e.getMessage());
-		}
-		catch (IOException e) 
-		{
-			System.out.println(e.getMessage());
-		}
-	}
-	public void setEmailStudent()
-	{
-		for (int i = 0; i < listStr.size(); i++) 
-		{
-			String info[] = listStr.get(i).split(",");
-			for (int j = 0; j < studentList.getSize(); j++) 
-			{
-				if(info[0].equalsIgnoreCase(studentList.getIndex(j).getId()))
-				{
-					studentList.getIndex(j).setEmail(info[1]);
-				}					
-			}		
-		}	
-		listStr.clear();
 	}
 
 }

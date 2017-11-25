@@ -2,18 +2,13 @@ package View;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
-import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
-import java.awt.Graphics;
 import java.awt.GridLayout;
-import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.io.BufferedReader;
 import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
+
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -28,22 +23,13 @@ import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
-import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
-import javax.swing.border.Border;
-import javax.swing.border.LineBorder;
-
-import java.util.ArrayList;
-import java.util.Iterator;
 
 import model.Course;
 import model.Member;
-import model.MemberList;
 import model.Student;
 import model.StudentList;
-
-//import Controller.LoginController;
 
 public class SettingGradFrame extends JFrame implements ActionListener {
 	private JPanel mainPanel, pscore, pbutton;
@@ -52,11 +38,9 @@ public class SettingGradFrame extends JFrame implements ActionListener {
 	private JLabel[] arrPoint;
 	private JButton calculatebtn;
 	private JMenuBar menubar;
-	private JMenu menu, menu1, menu2;
+	private JMenu menu;
 	private JMenuItem item1, item2;
-	private JLabel text1, text2;
 	private JTextField aTxt, bTxt, bbTxt, cTxt, ccTxt, dTxt, ddTxt, fTxt;
-	private Color backgroundColor = new Color(179, 235, 255);
 	StudentList studentList;
 	Student student;
 	private Member member;
@@ -175,47 +159,19 @@ public class SettingGradFrame extends JFrame implements ActionListener {
 	}
 
 	@Override
-	public void actionPerformed(ActionEvent e) {
-		String[] a = aTxt.getText().split("-");
-		String[] bb = bTxt.getText().split("-");
-		String[] b = bbTxt.getText().split("-");
-		String[] cc = ccTxt.getText().split("-");
-		String[] c = cTxt.getText().split("-");
-		String[] dd = ddTxt.getText().split("-");
-		String[] d = dTxt.getText().split("-");
-		String[] f = fTxt.getText().split("-");
-		if (e.getActionCommand().equals("Calculate")) {
-		/*	dispose();
-			setTxtEditableFalse();
-			sumGrade = new String[studentList.getSize()];
-			for (int i = 0; i < studentList.getSize(); i++) {
-				if (studentList.getIndex(i).getTotalScore() >= Integer.valueOf(a[0])) {
-					sumGrade[i] = studentList.getIndex(i).getId() + " A";
-				} else if (studentList.getIndex(i).getTotalScore() >= Integer.valueOf(bb[0])) {
-					sumGrade[i] = studentList.getIndex(i).getId() + " B+";
-				} else if (studentList.getIndex(i).getTotalScore() >= Integer.valueOf(b[0])) {
-					sumGrade[i] = studentList.getIndex(i).getId() + " B";
-				} else if (studentList.getIndex(i).getTotalScore() >= Integer.valueOf(cc[0])) {
-					sumGrade[i] = studentList.getIndex(i).getId() + " C+";
-				} else if (studentList.getIndex(i).getTotalScore() >= Integer.valueOf(c[0])) {
-					sumGrade[i] = studentList.getIndex(i).getId() + " C";
-				} else if (studentList.getIndex(i).getTotalScore() >= Integer.valueOf(dd[0])) {
-					sumGrade[i] = studentList.getIndex(i).getId() + " D+";
-				} else if (studentList.getIndex(i).getTotalScore() >= Integer.valueOf(d[0])) {
-					sumGrade[i] = studentList.getIndex(i).getId() + " D";
-				} else if (studentList.getIndex(i).getTotalScore() >= Integer.valueOf(f[0])) {
-					sumGrade[i] = studentList.getIndex(i).getId() + " F";
-				}
-			}*/
-			setttt();
-			
-			
-		}
-		
-		try {
+	public void actionPerformed(ActionEvent e) 
+	{
+		if (e.getActionCommand().equals("Calculate")) 
+		{
+			setttt();			
+		}		
+		try 
+		{
 			dispose();
 			new EmailFrame(member, course);
-		} catch (IOException e1) {
+		} 
+		catch (IOException e1) 
+		{
 			e1.printStackTrace();
 		}
 	}
@@ -386,7 +342,7 @@ public class SettingGradFrame extends JFrame implements ActionListener {
 	public boolean saveGrade() {
 		try
 		{
-			FileWriter fileWriter = new FileWriter(new File("TotalGrade"+"List.txt"),false);
+			FileWriter fileWriter = new FileWriter(new File(member.getUsername() + "_" + course.getCourseName() + "TotalGrade"+"List.txt"),false);
 			PrintWriter writer = new PrintWriter(fileWriter);
 			for (int i = 0; i < studentList.getSize(); i++) 
 			{
@@ -394,9 +350,6 @@ public class SettingGradFrame extends JFrame implements ActionListener {
 			}		
 			writer.close();
 			fileWriter.close();
-			/*member.setImportClassList(true);
-			MemberList mList = new MemberList();
-			mList.updateFile(member);*/
 			return true;
 		}
 		catch (IOException e) 
@@ -405,22 +358,6 @@ public class SettingGradFrame extends JFrame implements ActionListener {
 			return false;
 		}
 	}
-		/*try {
-			FileWriter fileWriter = new FileWriter(new File(member.getUsername() + "_" + course.getCourseName() +"TotalGrade" + "List.txt"), false);
-			PrintWriter writer = new PrintWriter(fileWriter);
-			for (int i = 0; i < studentList.getSize(); i++) {
-				System.out.println(sumGrade[i]);
-				writer.println(sumGrade[i]);
-			}
-			writer.close();
-			fileWriter.close();
 
-			return true;
-		} catch (IOException e) {
-			JOptionPane.showMessageDialog(null, e.getMessage(), "Message", JOptionPane.INFORMATION_MESSAGE,
-					new ImageIcon("exceptionIcon.png"));
-			return false;
-		}
-	}*/
 
 }

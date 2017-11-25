@@ -9,18 +9,15 @@ import java.io.IOException;
 
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
-import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.JPanel;
-import javax.swing.SwingConstants;
 
 import model.Course;
 import model.Member;
-import model.MemberList;
 import model.StudentList;
 
 public class DetailFrame extends JFrame 

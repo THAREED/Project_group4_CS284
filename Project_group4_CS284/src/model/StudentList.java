@@ -171,4 +171,90 @@ public class StudentList
 	{
 		return studentList.size();
 	}
+	
+	ArrayList<String> listGrade = new ArrayList<String>();
+	public void getGradeStudentFromFile()
+	{
+		try
+		{
+			File file = new File(member.getUsername() + "_" + course.getCourseName() + "TotalGradeList.txt");
+			FileReader fileReader = new FileReader(file);
+			BufferedReader reader = new BufferedReader(fileReader);
+			String str = reader.readLine();
+			while(str != null)
+			{
+				listGrade.add(str);
+				str = reader.readLine();
+			}			
+			reader.close();
+			fileReader.close();
+			setGradeStudent();
+		}
+		catch (FileNotFoundException e) 
+		{
+			System.out.println(e.getMessage());
+		}
+		catch (IOException e) 
+		{
+			System.out.println(e.getMessage());
+		}
+	}
+	public void setGradeStudent()
+	{
+		for (int i = 0; i < listGrade.size(); i++) 
+		{
+			String info[] = listGrade.get(i).split(" ");
+			for (int j = 0; j < studentList.size(); j++) 
+			{
+				if(info[0].equalsIgnoreCase(studentList.get(j).getId()))
+				{
+					studentList.get(j).setGrad(info[1]);
+				}					
+			}		
+		}
+		listGrade.clear();
+	}
+
+	ArrayList<String> listStr = new ArrayList<String>();
+	public void getEmailStudentFromFile()
+	{
+		try
+		{
+			File file = new File("emailStudent.txt");
+			FileReader fileReader = new FileReader(file);
+			BufferedReader reader = new BufferedReader(fileReader);
+			String str = reader.readLine();
+			while(str != null)
+			{
+				listStr.add(str);
+				str = reader.readLine();
+			}			
+			reader.close();
+			fileReader.close();
+			setEmailStudent();
+		}
+		catch (FileNotFoundException e) 
+		{
+			System.out.println(e.getMessage());
+		}
+		catch (IOException e) 
+		{
+			System.out.println(e.getMessage());
+		}
+	}
+	public void setEmailStudent()
+	{
+		for (int i = 0; i < listStr.size(); i++) 
+		{
+			String info[] = listStr.get(i).split(",");
+			for (int j = 0; j < studentList.size(); j++) 
+			{
+				if(info[0].equalsIgnoreCase(studentList.get(j).getId()))
+				{
+					studentList.get(j).setEmail(info[1]);
+				}					
+			}		
+		}	
+		listStr.clear();
+	}
 }

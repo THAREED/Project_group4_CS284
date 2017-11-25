@@ -13,18 +13,14 @@ import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
-import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 import javax.swing.border.EtchedBorder;
 
-import Controller.LoginController;
 import Controller.ProfileController;
 import model.Member;
-import model.MemberList;
-import model.ProfileException;
 
 public class ProfileMember extends JFrame
 {

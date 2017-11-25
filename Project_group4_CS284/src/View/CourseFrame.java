@@ -160,7 +160,6 @@ public class CourseFrame extends JFrame
 		try {
 			new CourseFrame(new MemberList().getMemberList(3));
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
