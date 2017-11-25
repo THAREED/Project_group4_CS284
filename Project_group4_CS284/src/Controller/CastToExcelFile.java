@@ -15,13 +15,15 @@ import model.StudentList;
 
 public class CastToExcelFile 
 {
-	Member member;
-	Course course;
-	StudentList studentList;
-	public CastToExcelFile(Member member, Course course) 
+	private Member member;
+	private Course course;
+	private StudentList studentList;
+	private String fileName;
+	public CastToExcelFile(Member member, Course course, String filename) 
 	{
 		this.member = member;
 		this.course = course;
+		this.fileName = filename;
 		studentList = new StudentList(member, course);
 		File file = new File(member.getUsername() + "_" + course.getCourseName() + "List.txt");
 		studentList.setStudentShowInFill(file);
@@ -32,10 +34,8 @@ public class CastToExcelFile
 	{
 		try
 		{
-			String fileName = course.getCourseID().toUpperCase() + "_" + course.getCourseName() + "_Grade_By_"+member.getFirstname()+"_"+member.getLastname()+".xls";
-			WritableWorkbook workbook = Workbook.createWorkbook(new File(fileName));
-			
-			WritableSheet ws1 = workbook.createSheet("mySheet1", 0);
+			WritableWorkbook workbook = Workbook.createWorkbook(new File(fileName+".xls"));
+			WritableSheet ws1 = workbook.createSheet(course.getCourseID(), 0);
 			for (int i = 0; i < studentList.getSize(); i++) 
 			{
 				ws1.addCell(new Label(0, i, studentList.getIndex(i).getId()));

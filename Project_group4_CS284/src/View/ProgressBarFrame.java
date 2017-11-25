@@ -53,8 +53,6 @@ public class ProgressBarFrame extends JFrame {
 
 	public ProgressBarFrame(Member member, Course course,File file) {
 
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-
 		setBounds(100, 100, 362, 249);
 		setLocation(500, 350);
 
@@ -181,7 +179,7 @@ public class ProgressBarFrame extends JFrame {
 				dialog.dispose();
 				ImageIcon icon = new ImageIcon(this.getClass().getResource("/email.png"));
 				JOptionPane.showMessageDialog(null, "Send mail is successfully!!!", null ,JOptionPane.INFORMATION_MESSAGE,icon);
-				System.exit(0);
+			//	System.exit(0);
 			}
 
 		}

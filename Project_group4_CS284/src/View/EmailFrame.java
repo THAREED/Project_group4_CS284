@@ -158,7 +158,7 @@ public class EmailFrame extends JFrame
 			@Override
 			public void actionPerformed(ActionEvent e)
 			{
-				dispose();
+				//dispose();
 				new ProgressBarFrame(member,course,file);
 				
 				/// send email to student				
@@ -172,7 +172,7 @@ public class EmailFrame extends JFrame
 			public void actionPerformed(ActionEvent e) 
 			{
 				//// convert to exel file
-				new CastToExcelFile(member, course);
+				new CastToExcelFileFrame(member, course);
 			}
 
 		});
