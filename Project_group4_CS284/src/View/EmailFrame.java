@@ -185,6 +185,7 @@ public class EmailFrame extends JFrame
 	{
 		for (int i = 0; i < studentList.getSize(); i++) 
 		{
+			table.setValueAt(studentList.getIndex(i).getEmail(), i, 2);
 			table.setValueAt(studentList.getIndex(i).getGrad(), i, 4);
 		}
 	}

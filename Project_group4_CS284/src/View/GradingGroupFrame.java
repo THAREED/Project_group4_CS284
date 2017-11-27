@@ -8,7 +8,6 @@ import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
-
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -25,70 +24,120 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
+import javax.swing.border.Border;
+
+import org.jfree.chart.ChartFactory;
+import org.jfree.chart.ChartPanel;
+import org.jfree.chart.JFreeChart;
+import org.jfree.chart.plot.PlotOrientation;
+import org.jfree.data.function.Function2D;
+import org.jfree.data.function.NormalDistributionFunction2D;
+import org.jfree.data.general.DatasetUtilities;
+import org.jfree.data.xy.XYDataset;
+import org.jfree.ui.ApplicationFrame;
 
 import model.Course;
 import model.Member;
 import model.Student;
 import model.StudentList;
 
-public class SettingGradFrame extends JFrame implements ActionListener {
-	private JPanel mainPanel, pscore, pbutton;
-	private JPanel p1, p2, p3;
-	private JLabel a, b, bb, c, cc, d, dd, f;
-	private JLabel[] arrPoint;
-	private JButton calculatebtn;
-	private JMenuBar menubar;
-	private JMenu menu;
-	private JMenuItem item1, item2;
-	private JTextField aTxt, bTxt, bbTxt, cTxt, ccTxt, dTxt, ddTxt, fTxt;
+public class GradingGroupFrame extends JFrame{
+	
 	StudentList studentList;
 	Student student;
-	private Member member;
-	private Course course;
-	private String sumGrade[];
-
-	public SettingGradFrame(Member member, Course course, File file) throws IOException {
+	Member member;
+	Course course;
+	double count = 0;
+	String sumGrade[];
+	double resultGrade,resultGrade2;
+	double sum,avg,sd,min=0,max=0;
+	JPanel main,p3,p2,p1,pscore, pbutton;
+	JLabel a, b, bb, c, cc, d, dd, f;
+	double a2,bb2,b2,cc2,c2,dd2,d2,f2;
+	JLabel[] arrPoint;
+	private JTextField aTxt, bTxt, bbTxt, cTxt, ccTxt, dTxt, ddTxt, fTxt;
+	JButton calculatebtn;
+	
+	public GradingGroupFrame(Member member, Course course, File file) throws IOException{
 		this.member = member;
 		this.course = course;
+		this.student = student;
 		studentList = new StudentList(member, course);
 		studentList.setStudentShowInFill(file);
-
-		mainPanel = new JPanel(new BorderLayout());
-		mainPanel.setBorder(BorderFactory.createTitledBorder(BorderFactory.createRaisedBevelBorder(), "Setting Grade"));
-
+		
+		main = new JPanel();
+		main.setLayout(new BorderLayout());
+		main.setBorder(BorderFactory.createTitledBorder(BorderFactory.createRaisedBevelBorder(), "Grading Group"));
+		GroupGrading();
 		setValueGrade();
 		setScoreGrad();
 		setTxtEditableFalse();
 		setPoint();
-
+		
 		pscore = new JPanel();
 		pscore.add(p1);
 		pscore.add(p2);
 		pscore.add(p3);
 		pscore.add(new JLabel(" "));
-
+		
 		pbutton = new JPanel();
 		calculatebtn = new JButton("Calculate");
-		pbutton.add(calculatebtn);
 		calculatebtn.setBorder(BorderFactory.createRaisedSoftBevelBorder());
-		calculatebtn.addActionListener(this);
-
-		mainPanel.add(pscore, BorderLayout.NORTH);
-		mainPanel.add(pbutton, BorderLayout.SOUTH);
-
-		setMenuBar();
+		calculatebtn.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// TODO Auto-generated method stub
+				if (e.getActionCommand().equals("Calculate")) {
+					setTxtEditableFalse();
+					sumGrade = new String[studentList.getSize()];
+					for (int i = 0; i < studentList.getSize(); i++) {
+						if (studentList.getIndex(i).getTotalScore() >= bb2 ) {
+							sumGrade[i] = studentList.getIndex(i).getId() + " A";
+						} else if (studentList.getIndex(i).getTotalScore() >= b2) {
+							sumGrade[i] = studentList.getIndex(i).getId() + " B+";
+						} else if (studentList.getIndex(i).getTotalScore() >= cc2) {
+							sumGrade[i] = studentList.getIndex(i).getId() + " B";
+						} else if (studentList.getIndex(i).getTotalScore() >= c2) {
+							sumGrade[i] = studentList.getIndex(i).getId() + " C+";
+						} else if (studentList.getIndex(i).getTotalScore() >= dd2) {
+							sumGrade[i] = studentList.getIndex(i).getId() + " C";
+						} else if (studentList.getIndex(i).getTotalScore() >= d2) {
+							sumGrade[i] = studentList.getIndex(i).getId() + " D+";
+						} else if (studentList.getIndex(i).getTotalScore() >= f2) {
+							sumGrade[i] = studentList.getIndex(i).getId() + " D";
+						} else {
+							sumGrade[i] = studentList.getIndex(i).getId() + " F";
+						}
+					}
+					saveGrade();
+					
+				}
+				dispose();
+				try {
+					new EmailFrame(member, course);
+				} catch (IOException e1) {
+					e1.printStackTrace();
+				}
+			}
+		});
+		pbutton.add(calculatebtn);
+		
+		main.add(new NormalDistributionDemo("",avg).createChartPanel(), BorderLayout.NORTH);
+		main.add(pscore, BorderLayout.CENTER);
+		main.add(pbutton, BorderLayout.SOUTH);
 
 		showTopPage();
-		this.add(mainPanel, BorderLayout.CENTER);
-		this.setTitle("Setting Grade");
+	       
+		this.add(main, BorderLayout.CENTER);
+		this.setTitle("Setting Grading Group");
 		this.setSize(450, 350);
 		setResizable(false);
 		pack();
 		setLocationRelativeTo(null);
 		this.setVisible(true);
-
 	}
-
+	
 	public void showTopPage() throws IOException {
 		JPanel usrePanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
 		JLabel nameLabel = new JLabel(member.getName());
@@ -155,55 +204,10 @@ public class SettingGradFrame extends JFrame implements ActionListener {
 				}
 			}
 		});
+		
+		
 	}
-
-	@Override
-	public void actionPerformed(ActionEvent e) {
-		if (e.getActionCommand().equals("Calculate")) {
-			setttt();
-		}
-		try {
-			dispose();
-			new EmailFrame(member, course);
-		} catch (IOException e1) {
-			e1.printStackTrace();
-		}
-	}
-
-	public void setttt() {
-		String[] a = aTxt.getText().split("-");
-		String[] bb = bTxt.getText().split("-");
-		String[] b = bbTxt.getText().split("-");
-		String[] cc = ccTxt.getText().split("-");
-		String[] c = cTxt.getText().split("-");
-		String[] dd = ddTxt.getText().split("-");
-		String[] d = dTxt.getText().split("-");
-		String[] f = fTxt.getText().split("-");
-		dispose();
-		setTxtEditableFalse();
-		sumGrade = new String[studentList.getSize()];
-		for (int i = 0; i < studentList.getSize(); i++) {
-			if (studentList.getIndex(i).getTotalScore() >= Integer.valueOf(a[0])) {
-				sumGrade[i] = studentList.getIndex(i).getId() + " A";
-			} else if (studentList.getIndex(i).getTotalScore() >= Integer.valueOf(bb[0])) {
-				sumGrade[i] = studentList.getIndex(i).getId() + " B+";
-			} else if (studentList.getIndex(i).getTotalScore() >= Integer.valueOf(b[0])) {
-				sumGrade[i] = studentList.getIndex(i).getId() + " B";
-			} else if (studentList.getIndex(i).getTotalScore() >= Integer.valueOf(cc[0])) {
-				sumGrade[i] = studentList.getIndex(i).getId() + " C+";
-			} else if (studentList.getIndex(i).getTotalScore() >= Integer.valueOf(c[0])) {
-				sumGrade[i] = studentList.getIndex(i).getId() + " C";
-			} else if (studentList.getIndex(i).getTotalScore() >= Integer.valueOf(dd[0])) {
-				sumGrade[i] = studentList.getIndex(i).getId() + " D+";
-			} else if (studentList.getIndex(i).getTotalScore() >= Integer.valueOf(d[0])) {
-				sumGrade[i] = studentList.getIndex(i).getId() + " D";
-			} else if (studentList.getIndex(i).getTotalScore() >= Integer.valueOf(f[0])) {
-				sumGrade[i] = studentList.getIndex(i).getId() + " F";
-			}
-		}
-		saveGrade();
-	}
-
+	
 	public void setValueGrade() {
 		p1 = new JPanel();
 		p1.setLayout(new GridLayout(0, 1));
@@ -243,19 +247,20 @@ public class SettingGradFrame extends JFrame implements ActionListener {
 		p1.add(dd);
 		p1.add(f);
 	}
-
+	
 	public void setScoreGrad() {
+		
 		p2 = new JPanel();
 		p2.setLayout(new GridLayout(0, 1));
-		aTxt = new JTextField("80-100");
-		bbTxt = new JTextField("75-79");
-		bTxt = new JTextField("70-74");
-		ccTxt = new JTextField("65-69");
-		cTxt = new JTextField("60-64");
-		ddTxt = new JTextField("55-59");
-		dTxt = new JTextField("50-54");
-		fTxt = new JTextField("0-49");
-
+		aTxt = new JTextField(bb2+"-100");
+		bbTxt = new JTextField(b2+"-"+(bb2-1));
+		bTxt = new JTextField(cc2+"-" +(b2-1));
+		ccTxt = new JTextField(c2+"-" +(cc2-1));
+		cTxt = new JTextField(dd2+"-" +(c2-1));
+		ddTxt = new JTextField(d2+"-" +(dd2-1));
+		dTxt = new JTextField(f2+"-" +(d2-1));
+		fTxt = new JTextField("00.0-" +(f2-1));
+		
 		aTxt.setPreferredSize(new Dimension(100, 20));
 		bbTxt.setPreferredSize(new Dimension(100, 20));
 		bTxt.setPreferredSize(new Dimension(100, 20));
@@ -284,7 +289,31 @@ public class SettingGradFrame extends JFrame implements ActionListener {
 		p2.add(fTxt);
 
 	}
-
+	
+	public void GroupGrading(){
+		double sumpow[] = new double[studentList.getSize()];
+		
+		for(int i = 0; i < studentList.getSize();i++){
+			resultGrade += studentList.getIndex(i).getTotalScore();
+			count++;
+		}
+		
+		avg = Math.round(resultGrade/count);
+		
+		for(int i = 0; i < studentList.getSize();i++){ 
+			sumpow[i] = Math.pow((studentList.getIndex(i).getTotalScore()-avg), 2);
+		}
+		
+		for(int i = 0; i < studentList.getSize();i++){ 
+			sum += sumpow[i];
+		}
+		double z = Math.sqrt(sum/count);
+		double newsum = Math.round(z);
+		sd = newsum/2;
+		a2 = (avg+(sd*3.5)); bb2 = (avg+(sd*2.5)); b2 = (avg+(sd*1.5)); cc2 = (avg+(sd*0.5));
+		c2 = (avg-(sd*0.5)); dd2 = (avg-(sd*1.5)); d2 = (avg-(sd*2.5)); f2 = (avg-(sd*3.5));
+	}
+	
 	public void setPoint() {
 		p3 = new JPanel();
 		p3.setLayout(new GridLayout(0, 1));
@@ -297,20 +326,7 @@ public class SettingGradFrame extends JFrame implements ActionListener {
 		}
 
 	}
-
-	public void setMenuBar() {
-		menubar = new JMenuBar();
-		setJMenuBar(menubar);
-
-		menu = new JMenu("Menu");
-		menubar.add(menu);
-		item1 = new JMenuItem("Criterion-Referenced Evaluation");
-		item2 = new JMenuItem("Norm-Referenced Evaluation");
-		menu.add(item1);
-		menu.add(item2);
-
-	}
-
+	
 	public void setTxtEditableFalse() {
 		aTxt.setEditable(false);
 		bTxt.setEditable(false);
@@ -332,17 +348,18 @@ public class SettingGradFrame extends JFrame implements ActionListener {
 		ddTxt.setEditable(true);
 		fTxt.setEditable(true);
 	}
-
+	
 	public boolean saveGrade() {
 		try {
-			FileWriter fileWriter = new FileWriter(
-					new File(member.getUsername() + "_" + course.getCourseName() + "TotalGrade" + "List.txt"), false);
+			FileWriter fileWriter = new FileWriter(member.getUsername() + "_" + course.getCourseName() + "TotalGradeList.txt", false);
 			PrintWriter writer = new PrintWriter(fileWriter);
 			for (int i = 0; i < studentList.getSize(); i++) {
+				System.out.println(sumGrade[i]);
 				writer.println(sumGrade[i]);
 			}
 			writer.close();
 			fileWriter.close();
+
 			return true;
 		} catch (IOException e) {
 			JOptionPane.showMessageDialog(null, e.getMessage(), "Message", JOptionPane.INFORMATION_MESSAGE,

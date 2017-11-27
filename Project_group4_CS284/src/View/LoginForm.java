@@ -4,9 +4,12 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
+import java.awt.Font;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 import java.io.IOException;
 
 import javax.security.auth.login.LoginException;
@@ -22,17 +25,16 @@ import javax.swing.SwingConstants;
 
 import Controller.LoginController;
 
-public class LoginForm extends JFrame implements ActionListener
-{
+public class LoginForm extends JFrame implements ActionListener {
 	private JLabel logo;
 	private JTextField username;
 	private JPasswordField password;
-	private JLabel userLabel , passLabel;
-	private JButton login , cancel;
+	private JLabel userLabel, passLabel;
+	private JButton login, cancel;
 	private JPanel mainPanel;
 	private Color backgroundColor = new Color(179, 235, 255);
-	public LoginForm() throws IOException 
-	{
+
+	public LoginForm() throws IOException {
 		mainPanel = new JPanel(new BorderLayout());
 		setLogo();
 		setLoginControl();
@@ -43,14 +45,13 @@ public class LoginForm extends JFrame implements ActionListener
 		setTitle("Grading System");
 		setSize(new Dimension(450, 350));
 		setResizable(false);
-		setLocationRelativeTo(null);  
+		setLocationRelativeTo(null);
 		setVisible(true);
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
 	}
 
-	public void setLogo() 
-	{
-		logo = new JLabel (new ImageIcon(this.getClass().getResource("/TU-logo.png")));
+	public void setLogo() {
+		logo = new JLabel(new ImageIcon(this.getClass().getResource("/TU-logo.png")));
 		JPanel logoPanel = new JPanel(new FlowLayout(FlowLayout.CENTER));
 		logoPanel.add(logo);
 		logo.setText("Thammasat University.");
@@ -60,25 +61,49 @@ public class LoginForm extends JFrame implements ActionListener
 		logoPanel.setBackground(new Color(179, 235, 255));
 
 	}
-	public void setLoginControl() 
-	{
+
+	public void setLoginControl() {
 		username = new JTextField(15);
+		username.setText("USERNAME");
+		username.setForeground(Color.LIGHT_GRAY);
+		username.setFont(new Font("Comic Sans MS", Font.BOLD, 15));
+		username.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyPressed(KeyEvent e) {
+				if (username.getForeground().equals(Color.LIGHT_GRAY)) {
+					username.setText("");
+					username.setForeground(Color.DARK_GRAY);
+					username.setHorizontalAlignment(SwingConstants.LEFT);
+				}
+			}
+		});
 		password = new JPasswordField(15);
-		userLabel = new JLabel("Username:   ");
-		userLabel.setIcon(new ImageIcon(this.getClass().getResource("/userIcon.png")));
-		passLabel = new JLabel("Password:   ");
-		passLabel.setIcon(new ImageIcon(this.getClass().getResource("/passwordIcon.png")));
+		password.setText("********");
+		password.setForeground(Color.LIGHT_GRAY);
+		password.setFont(new Font("Comic Sans MS", Font.BOLD, 15));
+		userLabel = new JLabel(new ImageIcon(this.getClass().getResource("/userIcon.png")));
+		passLabel = new JLabel(new ImageIcon(this.getClass().getResource("/passwordIcon.png")));
+		password.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyPressed(KeyEvent e) {
+				if (password.getForeground().equals(Color.LIGHT_GRAY)) {
+					password.setText("");
+					password.setForeground(Color.DARK_GRAY);
+					password.setHorizontalAlignment(SwingConstants.LEFT);
+				}
+			}
+		});
 		password.addActionListener(this);
 		password.setActionCommand("password");
-		
+
 		JPanel userPanel = new JPanel(new FlowLayout());
 		userPanel.add(userLabel);
 		userPanel.add(username);
-		
+
 		JPanel passPanel = new JPanel(new FlowLayout());
 		passPanel.add(passLabel);
 		passPanel.add(password);
-		
+
 		login = new JButton("Login");
 		cancel = new JButton("Cancel");
 		JPanel loginPanel = new JPanel(new FlowLayout());
@@ -90,7 +115,7 @@ public class LoginForm extends JFrame implements ActionListener
 		cancel.setBorder(BorderFactory.createRaisedSoftBevelBorder());
 		login.addActionListener(this);
 		cancel.addActionListener(this);
-		
+
 		JPanel controlPanel = new JPanel(new GridLayout(3, 1));
 		controlPanel.add(userPanel);
 		controlPanel.add(passPanel);
@@ -99,42 +124,42 @@ public class LoginForm extends JFrame implements ActionListener
 		userPanel.setBackground(backgroundColor);
 		loginPanel.setBackground(backgroundColor);
 		passPanel.setBackground(backgroundColor);
-	}	
+	}
 
 	@Override
-	public void actionPerformed(ActionEvent e) 
-	{
+	public void actionPerformed(ActionEvent e) {
 		String str = e.getActionCommand();
-		if(str.equalsIgnoreCase("Cancel"))
-		{
-			username.setText("");
-			password.setText("");
+		if (str.equalsIgnoreCase("Cancel")) {
+			username.setText("USERNAME");
+			password.setText("********");
+			username.setForeground(Color.LIGHT_GRAY);
+			password.setForeground(Color.LIGHT_GRAY);
 		}
-		if(str.equalsIgnoreCase("Login") || str.equalsIgnoreCase("password"))
-		{
-			try 
-			{
-				if(username.getText().equals("") && password.getPassword().length == 0)
-				{
+		if (str.equalsIgnoreCase("Login") || str.equalsIgnoreCase("password")) {
+			try {
+				if (username.getText().equals("") && password.getPassword().length == 0) {
 					throw new LoginException();
-				}
-				else
-				{
-					LoginController controller = new LoginController(username.getText() , password.getPassword());
+				} else if (username.getForeground().equals(Color.LIGHT_GRAY)
+						|| password.getForeground().equals(Color.LIGHT_GRAY)) {
+					throw new LoginException();
+				} else {
+					LoginController controller = new LoginController(username.getText(), password.getPassword());
 					boolean check = controller.disposeLoginForm();
-					if(check)
-					{
+					if (check) {
 						dispose();
 					}
 				}
-			} 
-			catch (IOException | LoginException ex) {}
+			} catch (IOException | LoginException ex) {
+				username.setText("USERNAME");
+				password.setText("********");
+				username.setForeground(Color.LIGHT_GRAY);
+				password.setForeground(Color.LIGHT_GRAY);
+			}
 		}
-	}	
-	public static void main(String[] args) throws IOException 
-	{
-		new LoginForm();		
+	}
+
+	public static void main(String[] args) throws IOException {
+		new LoginForm();
 	}
 
 }
-

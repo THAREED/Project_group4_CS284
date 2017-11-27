@@ -84,7 +84,7 @@ public class FillScoresFrame extends JFrame {
 		JMenu menu = new JMenu("Menu");
 		JMenuItem logOut = new JMenuItem("Log out");
 		JMenuItem back = new JMenuItem("Back");
-	
+
 		back.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
@@ -145,6 +145,16 @@ public class FillScoresFrame extends JFrame {
 					fillScoresController.setEnabled(false);
 					settingButton.setText("Setting");
 				}
+				if (e.getActionCommand().equals("Norm-Referenced Evaluation")) {
+					try {
+						dispose();
+						File file = new File(member.getUsername() + "_" + course.getCourseName() + "List.txt");
+						new GradingGroupFrame(member, course, file);
+					} catch (IOException e1) {
+						e1.printStackTrace();
+					}
+				}
+
 			}
 		});
 		JButton calculateButton = new JButton("Calculate");
@@ -152,39 +162,43 @@ public class FillScoresFrame extends JFrame {
 		calculateButton.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				if (e.getActionCommand().equals("Calculate")) 
-				{
-					if(settingButton.getActionCommand().equals("Save"))
-					{
-						JOptionPane.showMessageDialog(null, "       Save update score.","Message",JOptionPane.INFORMATION_MESSAGE,new ImageIcon(this.getClass().getResource("/gearsIcon.png")));
+				if (e.getActionCommand().equals("Calculate")) {
+					if (settingButton.getActionCommand().equals("Save")) {
+						JOptionPane.showMessageDialog(null, "       Save update score.", "Message",
+								JOptionPane.INFORMATION_MESSAGE,
+								new ImageIcon(this.getClass().getResource("/gearsIcon.png")));
 						fillScoresController.fillScore();
 						studentList.saveList();
 						fillScoresController.setEnabled(false);
 						settingButton.setText("Setting");
-					}
-					else
-					{
-						settingButton.setEnabled(false);
+					} else {
+						// settingButton.setEnabled(false);
+						settingButton.setEnabled(true);
 						fillScoresController.setEnabled(false);
-						calculateButton.setText("Next");
+						settingButton.setText("Norm-Referenced Evaluation");
+						calculateButton.setText("Criterion-Referenced Evaluation");
 					}
 				}
-			
+
 				fillScoresController.calculate();
 				fillScoresController.updateTable();
-				if (e.getActionCommand().equals("Next")) 
-				{
-					try 
-					{
+				if (e.getActionCommand().equals("Criterion-Referenced Evaluation")) {
+					try {
 						dispose();
 						new SettingGradFrame(member, course, file);
-					} catch (IOException e1) 
-					{
+					} catch (IOException e1) {
 						e1.printStackTrace();
 					}
 
 				}
 
+				/*
+				 * if(e.getActionCommand().equals("Norm-Referenced Evaluation")) { try {
+				 * dispose(); File file = new
+				 * File(member.getUsername()+"_"+course.getCourseName()+"List.txt"); new
+				 * GradingGroupFrame(member, course, file); } catch (IOException e1) {
+				 * e1.printStackTrace(); } }
+				 */
 			}
 
 		});

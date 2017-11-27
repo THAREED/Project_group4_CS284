@@ -79,7 +79,7 @@ public class FillScoresController extends JPanel
 			table.setEnabled(false);
 		}
 	}
-	public StudentList calculate() {
+	public void calculate() {
 		double totalAss;
 		double totalMid;
 		double totalFinal;
@@ -91,10 +91,8 @@ public class FillScoresController extends JPanel
 			studentList.getIndex(i).setAssAcc(totalAss);
 			studentList.getIndex(i).setMidAcc(totalMid);
 			studentList.getIndex(i).setFinalAcc(totalFinal);
-			
 		}
 		studentList.saveList();
-		return studentList;
 	}
 
 	public void updateTable() {

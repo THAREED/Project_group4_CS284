@@ -19,7 +19,6 @@ public class CastToExcelFile
 	private Course course;
 	private StudentList studentList;
 	private String fileName;
-	
 	public CastToExcelFile(Member member, Course course, String filename) 
 	{
 		this.member = member;
