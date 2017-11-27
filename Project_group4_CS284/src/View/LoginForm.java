@@ -65,9 +65,9 @@ public class LoginForm extends JFrame implements ActionListener
 		username = new JTextField(15);
 		password = new JPasswordField(15);
 		userLabel = new JLabel("Username:   ");
-		userLabel.setIcon(new ImageIcon("userIcon.png"));
+		userLabel.setIcon(new ImageIcon(this.getClass().getResource("/userIcon.png")));
 		passLabel = new JLabel("Password:   ");
-		passLabel.setIcon(new ImageIcon("passwordIcon.png"));
+		passLabel.setIcon(new ImageIcon(this.getClass().getResource("/passwordIcon.png")));
 		password.addActionListener(this);
 		password.setActionCommand("password");
 		

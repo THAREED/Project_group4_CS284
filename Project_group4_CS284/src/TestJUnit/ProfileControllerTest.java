@@ -1,4 +1,4 @@
-package Controller;
+package TestJUnit;
 
 import static org.junit.Assert.*;
 
@@ -9,6 +9,7 @@ import javax.swing.JOptionPane;
 import org.junit.Before;
 import org.junit.Test;
 
+import Controller.ProfileController;
 import model.CourseList;
 import model.Member;
 import model.MemberList;
