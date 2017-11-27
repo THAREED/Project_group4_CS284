@@ -40,11 +40,6 @@ public class NormalDistributionDemo extends ApplicationFrame {
 	public static JPanel createChartPanel() 
 	{
 		JFreeChart chartPanel = freeChart(); 
-		//setPreferredSize(new java.awt.Dimension(500, 270));
-		//setContentPane(chartPanel);
-        //pack();
-        //RefineryUtilities.centerFrameOnScreen(this);
-        //setVisible(true);
 		return new ChartPanel(chartPanel);
 	}
 

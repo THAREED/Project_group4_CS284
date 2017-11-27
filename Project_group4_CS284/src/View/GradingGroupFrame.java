@@ -310,8 +310,14 @@ public class GradingGroupFrame extends JFrame{
 		double z = Math.sqrt(sum/count);
 		double newsum = Math.round(z);
 		sd = newsum/2;
-		a2 = (avg+(sd*3.5)); bb2 = (avg+(sd*2.5)); b2 = (avg+(sd*1.5)); cc2 = (avg+(sd*0.5));
-		c2 = (avg-(sd*0.5)); dd2 = (avg-(sd*1.5)); d2 = (avg-(sd*2.5)); f2 = (avg-(sd*3.5));
+		a2 = (avg+(sd*3.5)); 
+		bb2 = (avg+(sd*2.5));
+		b2 = (avg+(sd*1.5));
+		cc2 = (avg+(sd*0.5));
+		c2 = (avg-(sd*0.5)); 
+		dd2 = (avg-(sd*1.5)); 
+		d2 = (avg-(sd*2.5)); 
+		f2 = (avg-(sd*3.5));
 	}
 	
 	public void setPoint() {

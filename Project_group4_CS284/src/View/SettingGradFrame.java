@@ -160,7 +160,7 @@ public class SettingGradFrame extends JFrame implements ActionListener {
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		if (e.getActionCommand().equals("Calculate")) {
-			setttt();
+			setGrade();
 		}
 		try {
 			dispose();
@@ -170,7 +170,7 @@ public class SettingGradFrame extends JFrame implements ActionListener {
 		}
 	}
 
-	public void setttt() {
+	public void setGrade() {
 		String[] a = aTxt.getText().split("-");
 		String[] bb = bTxt.getText().split("-");
 		String[] b = bbTxt.getText().split("-");

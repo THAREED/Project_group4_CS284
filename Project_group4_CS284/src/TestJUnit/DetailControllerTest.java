@@ -31,7 +31,7 @@ public class DetailControllerTest {
 		course = new Course(courseList.getCourse(0).getCourseID(), courseList.getCourse(0).getCourseName(),
 				courseList.getCourse(0).getAssFull(), courseList.getCourse(0).getAssAcc(),
 				courseList.getCourse(0).getMidFull(), courseList.getCourse(0).getMidAcc(),
-				courseList.getCourse(0).getFinalFull(), courseList.getCourse(0).getFinalFull());
+				courseList.getCourse(0).getFinalFull(), courseList.getCourse(0).getFinalAcc());
 
 		DetailController detail = new DetailController(course);
 
@@ -51,7 +51,7 @@ public class DetailControllerTest {
 		course = new Course(courseList.getCourse(0).getCourseID(), courseList.getCourse(0).getCourseName(),
 				courseList.getCourse(0).getAssFull(), courseList.getCourse(0).getAssAcc(),
 				courseList.getCourse(0).getMidFull(), courseList.getCourse(0).getMidAcc(),
-				courseList.getCourse(0).getFinalFull(), courseList.getCourse(0).getFinalFull());
+				courseList.getCourse(0).getFinalFull(), courseList.getCourse(0).getFinalAcc());
 
 		DetailController detail = new DetailController(course);
 

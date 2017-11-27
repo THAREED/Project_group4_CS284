@@ -31,7 +31,7 @@ public class FillScoresControllerTest {
 	public void setUp() throws Exception {
 		mList = new MemberList();
 		courseList = new CourseList();
-		JOptionPane.showMessageDialog(null, "Strat test Score.!");
+		JOptionPane.showMessageDialog(null, "Strat test FillScore.!");
 	}
 
 	
@@ -43,40 +43,36 @@ public class FillScoresControllerTest {
 		course = new Course(courseList.getCourse(0).getCourseID(), courseList.getCourse(0).getCourseName(),
 				courseList.getCourse(0).getAssFull(), courseList.getCourse(0).getAssAcc(),
 				courseList.getCourse(0).getMidFull(), courseList.getCourse(0).getMidAcc(),
-				courseList.getCourse(0).getFinalFull(), courseList.getCourse(0).getFinalFull());
+				courseList.getCourse(0).getFinalFull(), courseList.getCourse(0).getFinalAcc());
 		
-		//studentList = new StudentList(member, course);
-		 /*   studentList.loadList();
-	  	studentList.setStudentList();
-		studentList.saveList();
-*/
 		file = new File(member.getUsername() + "_" + course.getCourseName() + "List.txt");
-		//studentList.setStudentShowInFill(file);
 		scores = new FillScoresController(member, course, file);
 
-	//	scores.fillScore();
+		studentList = new StudentList(member, course);
 		studentList = scores.calculate();
-		studentList.getIndex(2).setAssFull(20);
-		studentList.getIndex(2).setMidFull(80);
-		studentList.getIndex(2).setFinalFull(10);
-
-	//	studentList.saveList();
-		//scores.calculate();
-		System.out.println(studentList.getIndex(2).getTotalScore());
+		studentList.getIndex(0).setAssFull(50);
+		studentList.getIndex(0).setMidFull(80);
+		studentList.getIndex(0).setFinalFull(40);
+		
+		System.out.println(studentList.getIndex(0).getTotalScore());
 
 		studentList = scores.calculate();
         scores.fillScore();
 		scores.updateTable();
-		System.out.println(courseList.getCourse(2).toString());
-		System.out.println(studentList.getIndex(2).toString());
-		System.out.println();
-		for (int i = 0; i < studentList.getSize(); i++) {
-			System.out.println(studentList.getIndex(i).toString());
-		}
-		//System.out.println(studentList.getSize());
+		System.out.println(courseList.getCourse(0).toString());
 		
-		assertEquals(scores.isUpdate(), true);
-		//assertEquals(studentList, true);
+		Double totalTure = new Double(studentList.getIndex(0).getTotalScore());
+		System.out.println(totalTure);
+		Double total = new Double(studentList.getIndex(0).getAssAcc() + studentList.getIndex(0).getMidAcc() +studentList.getIndex(0).getFinalAcc());
+		System.out.println(studentList.getIndex(0).toString());
+		System.out.println(total);
+	
+		assertEquals(totalTure, total);
+		assertEquals(scores.isUpdate(),true);
+		
 	}
+
+
+
 
 }

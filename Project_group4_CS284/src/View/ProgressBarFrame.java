@@ -69,10 +69,6 @@ public class ProgressBarFrame extends JFrame {
 
 			public void run() {
 
-				// ProgressBarFrame frame = new ProgressBarFrame();
-
-				// frame.setVisible(true);
-
 			}
 
 		});
@@ -150,40 +146,23 @@ public class ProgressBarFrame extends JFrame {
 					if ("progress".equalsIgnoreCase(evt.getPropertyName())) {
 
 						if (dialog == null) {
-
 							dialog = new JDialog();
-
 							dialog.setTitle("Processing");
-
 							dialog.setLayout(new GridBagLayout());
-
 							dialog.setDefaultCloseOperation(JDialog.DO_NOTHING_ON_CLOSE);
-
 							GridBagConstraints gbc = new GridBagConstraints();
-
 							gbc.insets = new Insets(2, 2, 2, 2);
-
 							gbc.weightx = 1;
-
 							gbc.gridy = 0;
-
 							dialog.add(new JLabel("Processing..."), gbc);
-
 							pb = new JProgressBar();
-
 							pb.setStringPainted(true);
-
 							gbc.gridy = 1;
-
 							dialog.add(pb, gbc);
-
 							dialog.setSize(new Dimension(300, 100));
-
 							dialog.setLocationRelativeTo(null);
-
 							dialog.setModal(true);
 							JDialog.setDefaultLookAndFeelDecorated(true);
-
 							dialog.setVisible(true);
 
 						}

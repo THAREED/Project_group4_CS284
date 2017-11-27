@@ -28,11 +28,9 @@ public class FillScoresController extends JPanel
 	private JTable table;
 	private File file;
 	private boolean update;
-	private SettingGradFrame  settingGrade;
 	public FillScoresController(Member member, Course course, File file) throws IOException 
 	{
 		studentList = new StudentList(member, course);
-		//settingGrade = new SettingGradFrame(member, course);
 		this.file = file;
 		this.update = true;
 		this.member = member;
@@ -79,7 +77,7 @@ public class FillScoresController extends JPanel
 			table.setEnabled(false);
 		}
 	}
-	public void calculate() {
+	public StudentList calculate() {
 		double totalAss;
 		double totalMid;
 		double totalFinal;
@@ -93,6 +91,7 @@ public class FillScoresController extends JPanel
 			studentList.getIndex(i).setFinalAcc(totalFinal);
 		}
 		studentList.saveList();
+		return studentList;
 	}
 
 	public void updateTable() {

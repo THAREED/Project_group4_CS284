@@ -113,7 +113,7 @@ public class EmailFrame extends JFrame
 				try {
 					dispose();
 					SettingGradFrame set = new SettingGradFrame(member, course, new File("emailStudent.txt"));
-					set.setttt();
+					set.setGrade();
 				} catch (IOException e1) {
 					e1.printStackTrace();
 				}	
