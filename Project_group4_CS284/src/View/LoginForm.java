@@ -59,7 +59,6 @@ public class LoginForm extends JFrame implements ActionListener {
 		logo.setVerticalTextPosition(SwingConstants.BOTTOM);
 		mainPanel.add(logoPanel, BorderLayout.NORTH);
 		logoPanel.setBackground(new Color(179, 235, 255));
-
 	}
 
 	public void setLoginControl() {
@@ -158,7 +157,8 @@ public class LoginForm extends JFrame implements ActionListener {
 		}
 	}
 
-	public static void main(String[] args) throws IOException {
+	public static void main(String[] args) throws IOException 
+	{
 		new LoginForm();
 	}
 

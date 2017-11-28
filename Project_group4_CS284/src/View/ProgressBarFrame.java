@@ -4,44 +4,24 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.EventQueue;
-import java.awt.FlowLayout;
 import java.awt.Font;
-import java.awt.Graphics;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Image;
 import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.image.ImageObserver;
-import java.awt.image.ImageProducer;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.io.File;
-import java.io.IOException;
-import java.util.Properties;
 import java.util.Random;
 
-import javax.activation.DataHandler;
-import javax.activation.DataSource;
-import javax.activation.FileDataSource;
-import javax.mail.Message;
-import javax.mail.MessagingException;
-import javax.mail.Multipart;
-import javax.mail.PasswordAuthentication;
-import javax.mail.Session;
-import javax.mail.Transport;
-import javax.mail.internet.InternetAddress;
-import javax.mail.internet.MimeBodyPart;
-import javax.mail.internet.MimeMessage;
-import javax.mail.internet.MimeMultipart;
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
-import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JProgressBar;
 import javax.swing.SwingConstants;
@@ -56,7 +36,6 @@ import model.Member;
 import model.StudentList;
 
 public class ProgressBarFrame extends JFrame {
-
 	private Random ran;
 	private Member member;
 	private Course course;
@@ -64,59 +43,34 @@ public class ProgressBarFrame extends JFrame {
 	private JLabel logo;
 
 	public static void main(String[] args) {
-
 		EventQueue.invokeLater(new Runnable() {
-
 			public void run() {
-
 			}
-
 		});
-
 	}
 
 	public ProgressBarFrame(Member member, Course course, File file) {
-
 		setBounds(100, 100, 362, 249);
 		setLocation(500, 350);
-
 		setTitle("Sending mail");
-
 		getContentPane().setLayout(null);
-
 		JButton btnStart = new JButton("Start");
-
 		btnStart.addActionListener(new ActionListener() {
-
 			public void actionPerformed(ActionEvent e) {
 				dispose();
-
 				EventQueue.invokeLater(new Runnable() {
-
 					@Override
-
 					public void run() {
-
 						try {
-
 							UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
-
 						} catch (Exception ex) {
-
 						}
-
 						new BackgroundWorker().execute();
-
 					}
-
 				});
-
 			}
-
 		});
-
 		btnStart.setBounds(128, 113, 89, 23);
-
 		getContentPane().add(btnStart);
 		setVisible(true);
 		this.course = course;
@@ -127,24 +81,17 @@ public class ProgressBarFrame extends JFrame {
 		studentList.getGradeStudentFromFile();
 		studentList.getEmailStudentFromFile();
 		ran = new Random();
-
 	}
 
 	public class BackgroundWorker extends SwingWorker<Void, Void> {
-
 		private JProgressBar pb;
 		private JDialog dialog;
 
 		public BackgroundWorker() {
-
 			addPropertyChangeListener(new PropertyChangeListener() {
-
 				@Override
-
 				public void propertyChange(PropertyChangeEvent evt) {
-
 					if ("progress".equalsIgnoreCase(evt.getPropertyName())) {
-
 						if (dialog == null) {
 							dialog = new JDialog();
 							dialog.setTitle("Processing");
@@ -164,25 +111,16 @@ public class ProgressBarFrame extends JFrame {
 							dialog.setModal(true);
 							JDialog.setDefaultLookAndFeelDecorated(true);
 							dialog.setVisible(true);
-
 						}
-
 						pb.setValue(getProgress());
-
 					}
-
 				}
-
 			});
-
 		}
 
 		@Override
-
 		protected void done() {
-
 			if (dialog != null) {
-
 				dialog.dispose();
 				ImageIcon icon = new ImageIcon(this.getClass().getResource("/email.gif"));
 				icon.getImage().getScaledInstance(50, 50, Image.SCALE_DEFAULT);
@@ -201,12 +139,9 @@ public class ProgressBarFrame extends JFrame {
 				JPanel btnPanel = new JPanel();
 				JButton doneBtn = new JButton("Done");
 				doneBtn.addActionListener(new ActionListener() {
-
 					@Override
 					public void actionPerformed(ActionEvent e) {
-						// TODO Auto-generated method stub
 						f.dispose();
-
 					}
 				});
 				btnPanel.add(doneBtn);
@@ -219,60 +154,45 @@ public class ProgressBarFrame extends JFrame {
 				f.setLocation(500, 350);
 				f.pack();
 				f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-
 			}
-
 		}
 
 		@Override
-
 		protected Void doInBackground() throws Exception {
 			int percent = ran.nextInt(98) + 1;
-
 			for (int index = 0; index <= 100; index++) {
 				setProgress(index);
 				if (index == percent) {
 					sendMail();
-					
-				}
-				else if (index == 100) {
+				} else if (index == 100) {
 					sendDataMail();
 				}
-
 				Thread.sleep(50);
-
 			}
-			
-
 			return null;
 		}
 
-		private void sendDataMail()  {
-			// TODO Auto-generated method stub
+		private void sendDataMail() {
 			SendMailDataController mailData = new SendMailDataController(member, course);
 			mailData.initSender("tncpbee12@gmail.com", "0823224985");
 			mailData.send("tncpbee12@gmail.com", "beeza_8464@hotmail.com", "Summit Grade",
-					"text File of Students of "+course.getCourseName(), new OnSuccessListener() {
-
+					"text File of Students of " + course.getCourseName(), new OnSuccessListener() {
 						@Override
 						public void OnSuccess() {
-
 						}
 					});
-			
+
 		}
 	}
 
 	public void sendMail() {
-
 		SendMailController mail = new SendMailController();
 		mail.initSender("tncpbee12@gmail.com", "0823224985");
 		mail.send("tncpbee12@gmail.com", "beeza_8464@hotmail.com", "Summit Grade",
-				"your grade is " + studentList.getIndex(15).getGrad()+" of course "+course.getCourseName(), new OnSuccessListener() {
-
+				"your grade is " + studentList.getIndex(15).getGrad() + " of course " + course.getCourseName(),
+				new OnSuccessListener() {
 					@Override
 					public void OnSuccess() {
-
 					}
 				});
 
@@ -280,8 +200,8 @@ public class ProgressBarFrame extends JFrame {
 		 * for (int i = 0; i < studentList.getSize(); i++) {
 		 * 
 		 * mail.send("tncpbee12@gmail.com", studentList.getIndex(i).getEmail(),
-		 * "Summit Grade", "your grade is " + studentList.getIndex(i).getGrad(), new
-		 * OnSuccessListener() {
+		 * "Summit Grade", "your grade is " + studentList.getIndex(i).getGrad(),
+		 * new OnSuccessListener() {
 		 * 
 		 * @Override public void OnSuccess() {
 		 * 

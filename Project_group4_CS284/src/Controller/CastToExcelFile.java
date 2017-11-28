@@ -15,13 +15,11 @@ import model.StudentList;
 
 public class CastToExcelFile 
 {
-	private Member member;
 	private Course course;
 	private StudentList studentList;
 	private String fileName;
 	public CastToExcelFile(Member member, Course course, String filename) 
 	{
-		this.member = member;
 		this.course = course;
 		this.fileName = filename;
 		studentList = new StudentList(member, course);

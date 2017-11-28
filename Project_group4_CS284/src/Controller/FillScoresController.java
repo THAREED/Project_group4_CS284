@@ -21,19 +21,15 @@ import model.StudentList;
 
 public class FillScoresController extends JPanel
 {
-	private Member member;
 	private Course course;
 	private StudentList studentList;
 	private Object[][] data;
 	private JTable table;
-	private File file;
 	private boolean update;
 	public FillScoresController(Member member, Course course, File file) throws IOException 
 	{
 		studentList = new StudentList(member, course);
-		this.file = file;
 		this.update = true;
-		this.member = member;
 		this.course = course;
 		studentList.setStudentShowInFill(file);
 		setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
@@ -127,7 +123,6 @@ public class FillScoresController extends JPanel
 				studentList.getIndex(i).setFinalFull(finalFull);
 			} catch (NumberFormatException | DetailException ex) {
 
-			//	update = false;
 				setUpdate(false);
 				table.setValueAt(studentList.getIndex(i).getAssFull(), i, 2);
 				table.setValueAt(studentList.getIndex(i).getMidFull(), i, 3);

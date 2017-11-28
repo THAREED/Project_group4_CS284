@@ -24,17 +24,6 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
-import javax.swing.border.Border;
-
-import org.jfree.chart.ChartFactory;
-import org.jfree.chart.ChartPanel;
-import org.jfree.chart.JFreeChart;
-import org.jfree.chart.plot.PlotOrientation;
-import org.jfree.data.function.Function2D;
-import org.jfree.data.function.NormalDistributionFunction2D;
-import org.jfree.data.general.DatasetUtilities;
-import org.jfree.data.xy.XYDataset;
-import org.jfree.ui.ApplicationFrame;
 
 import model.Course;
 import model.Member;
@@ -44,7 +33,6 @@ import model.StudentList;
 public class GradingGroupFrame extends JFrame{
 	
 	StudentList studentList;
-	Student student;
 	Member member;
 	Course course;
 	double count = 0;
@@ -61,7 +49,6 @@ public class GradingGroupFrame extends JFrame{
 	public GradingGroupFrame(Member member, Course course, File file) throws IOException{
 		this.member = member;
 		this.course = course;
-		this.student = student;
 		studentList = new StudentList(member, course);
 		studentList.setStudentShowInFill(file);
 		
@@ -87,7 +74,6 @@ public class GradingGroupFrame extends JFrame{
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				// TODO Auto-generated method stub
 				if (e.getActionCommand().equals("Calculate")) {
 					setTxtEditableFalse();
 					sumGrade = new String[studentList.getSize()];
@@ -170,7 +156,6 @@ public class GradingGroupFrame extends JFrame{
 					dispose();
 					new FillScoresFrame(member, course);
 				} catch (IOException e1) {
-					// TODO Auto-generated catch block
 					e1.printStackTrace();
 				}
 			}
@@ -368,8 +353,7 @@ public class GradingGroupFrame extends JFrame{
 
 			return true;
 		} catch (IOException e) {
-			JOptionPane.showMessageDialog(null, e.getMessage(), "Message", JOptionPane.INFORMATION_MESSAGE,
-					new ImageIcon("exceptionIcon.png"));
+			JOptionPane.showMessageDialog(null, e.getMessage(), "Message", JOptionPane.INFORMATION_MESSAGE,new ImageIcon(this.getClass().getResource("/exceptionIcon.png")));
 			return false;
 		}
 	}

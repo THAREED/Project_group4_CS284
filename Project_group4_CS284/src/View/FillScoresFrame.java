@@ -172,7 +172,6 @@ public class FillScoresFrame extends JFrame {
 						fillScoresController.setEnabled(false);
 						settingButton.setText("Setting");
 					} else {
-						// settingButton.setEnabled(false);
 						settingButton.setEnabled(true);
 						fillScoresController.setEnabled(false);
 						settingButton.setText("Norm-Referenced Evaluation");
@@ -189,23 +188,13 @@ public class FillScoresFrame extends JFrame {
 					} catch (IOException e1) {
 						e1.printStackTrace();
 					}
-
 				}
-
-				/*
-				 * if(e.getActionCommand().equals("Norm-Referenced Evaluation")) { try {
-				 * dispose(); File file = new
-				 * File(member.getUsername()+"_"+course.getCourseName()+"List.txt"); new
-				 * GradingGroupFrame(member, course, file); } catch (IOException e1) {
-				 * e1.printStackTrace(); } }
-				 */
 			}
 
 		});
 		panel.add(settingButton);
 		panel.add(calculateButton);
 		add(panel, BorderLayout.SOUTH);
-
 	}
 
 }

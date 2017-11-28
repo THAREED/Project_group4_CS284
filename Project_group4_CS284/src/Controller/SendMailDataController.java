@@ -1,5 +1,6 @@
 package Controller;
 
+import java.io.File;
 import java.util.Properties;
 
 import javax.activation.DataHandler;
@@ -16,7 +17,6 @@ import javax.mail.internet.MimeBodyPart;
 import javax.mail.internet.MimeMessage;
 import javax.mail.internet.MimeMultipart;
 
-import View.ProgressBarFrame;
 import model.Course;
 import model.Member;
 
@@ -55,9 +55,10 @@ public class SendMailDataController {
 
 			MimeBodyPart messageBodyPart = new MimeBodyPart();
 
-			String attach = "C:\\Users\\Asus\\git\\Project_group4_CS2842\\Project_group4_CS284\\"+member.getUsername()+"_"+course.getCourseName()+"TotalGradeList.txt";
+			File file = new File(member.getUsername()+"_"+course.getCourseName()+"TotalGradeList.txt");
+			String attach = file.getAbsolutePath();
+
 			// fill message
-			//System.out.println(attach);
 			messageBodyPart.setText("Text file for all grades of students in the course "+course.getCourseName());
 
 			Multipart multipart = new MimeMultipart();
@@ -65,18 +66,12 @@ public class SendMailDataController {
 
 			// Part two is attachment
 			messageBodyPart = new MimeBodyPart();
-			//System.out.println(111);
 
 			DataSource source = new FileDataSource(attach);
-			//System.out.println(2222);
 			messageBodyPart.setDataHandler(new DataHandler(source));
-			//System.out.println(3333);
 			messageBodyPart.setFileName(member.getUsername()+"_"+course.getCourseName()+"TotalGradeList.txt");
-			//System.out.println(44444);
 			multipart.addBodyPart(messageBodyPart);
-			//System.out.println(55555);
 			message.setContent(multipart);
-			//System.out.println(6666);
 			Transport.send(message);
 
 			System.out.println("Mail Send Successfully.");

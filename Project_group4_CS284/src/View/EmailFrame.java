@@ -22,7 +22,6 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 
-import Controller.CastToExcelFile;
 import model.Course;
 import model.Member;
 import model.StudentList;
@@ -158,10 +157,7 @@ public class EmailFrame extends JFrame
 			@Override
 			public void actionPerformed(ActionEvent e)
 			{
-				//dispose();
 				new ProgressBarFrame(member,course,file);
-				
-				/// send email to student				
 			}
 		});
 		JButton convertToExelButton = new JButton("Convert File To Exel Format");
@@ -171,7 +167,6 @@ public class EmailFrame extends JFrame
 			@Override
 			public void actionPerformed(ActionEvent e) 
 			{
-				//// convert to exel file
 				new CastToExcelFileFrame(member, course);
 			}
 

@@ -52,7 +52,7 @@ public class StudentList
 				}
 				else
 				{
-					JOptionPane.showMessageDialog(null, "Please select only file.csv \n(e.g. studentList.csv)","Message",JOptionPane.INFORMATION_MESSAGE,new ImageIcon("exceptionIcon.png"));
+					JOptionPane.showMessageDialog(null, "Please select only file.csv \n(e.g. studentList.csv)","Message",JOptionPane.INFORMATION_MESSAGE,new ImageIcon(this.getClass().getResource("/exceptionIcon.png")));
 					loadList();
 				}
 			}
@@ -133,11 +133,11 @@ public class StudentList
 		}
 		catch (FileNotFoundException e) 
 		{
-			JOptionPane.showMessageDialog(null, "Please import student file again.","Message",JOptionPane.INFORMATION_MESSAGE,new ImageIcon("exceptionIcon.png"));
+			JOptionPane.showMessageDialog(null, "Please import student file again.","Message",JOptionPane.INFORMATION_MESSAGE,new ImageIcon(this.getClass().getResource("/exceptionIcon.png")));
 		}
 		catch (IOException e) 
 		{
-			JOptionPane.showMessageDialog(null, e.getMessage(),"Message",JOptionPane.INFORMATION_MESSAGE,new ImageIcon("exceptionIcon.png"));
+			JOptionPane.showMessageDialog(null, e.getMessage(),"Message",JOptionPane.INFORMATION_MESSAGE,new ImageIcon(this.getClass().getResource("/exceptionIcon.png")));
 		}
 	}
 	public boolean saveList() 
@@ -159,7 +159,7 @@ public class StudentList
 		}
 		catch (IOException e) 
 		{
-			JOptionPane.showMessageDialog(null, e.getMessage(),"Message",JOptionPane.INFORMATION_MESSAGE,new ImageIcon("exceptionIcon.png"));
+			JOptionPane.showMessageDialog(null, e.getMessage(),"Message",JOptionPane.INFORMATION_MESSAGE,new ImageIcon(this.getClass().getResource("/exceptionIcon.png")));
 			return false;
 		}
 	}	
