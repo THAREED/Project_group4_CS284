@@ -4,6 +4,7 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.EventQueue;
+import java.awt.FlowLayout;
 import java.awt.Font;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
@@ -55,6 +56,7 @@ public class ProgressBarFrame extends JFrame {
 		setTitle("Sending mail");
 		getContentPane().setLayout(null);
 		JButton btnStart = new JButton("Start");
+		btnStart.setBorder(BorderFactory.createRaisedSoftBevelBorder());
 		btnStart.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				dispose();
@@ -70,9 +72,17 @@ public class ProgressBarFrame extends JFrame {
 				});
 			}
 		});
+		
 		btnStart.setBounds(128, 113, 89, 23);
-		getContentPane().add(btnStart);
+		getContentPane().setLayout(new BorderLayout());
+		JLabel icon = new JLabel(new ImageIcon(this.getClass().getResource("/sendMail.gif")));
+		icon.setBorder(BorderFactory.createLoweredSoftBevelBorder());
+		getContentPane().add(icon, BorderLayout.CENTER);
+		getContentPane().add(btnStart, BorderLayout.SOUTH);
+		getContentPane().setSize(new Dimension(300, 300));
+		setResizable(false);
 		setVisible(true);
+		setLocationRelativeTo(null);
 		this.course = course;
 		this.member = member;
 		studentList = new StudentList(member, course);
@@ -154,6 +164,8 @@ public class ProgressBarFrame extends JFrame {
 				f.setLocation(500, 350);
 				f.pack();
 				f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+				f.setLocationRelativeTo(null);
+
 			}
 		}
 
@@ -209,5 +221,7 @@ public class ProgressBarFrame extends JFrame {
 		 */
 
 	}
+
+
 
 }

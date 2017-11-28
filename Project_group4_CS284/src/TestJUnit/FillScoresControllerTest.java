@@ -55,18 +55,19 @@ public class FillScoresControllerTest {
 		studentList.getIndex(0).setFinalFull(40);
 		
 		System.out.println(studentList.getIndex(0).getTotalScore());
-
+		
+		
 		studentList = scores.calculate();
         scores.fillScore();
 		scores.updateTable();
 		System.out.println(courseList.getCourse(0).toString());
-		
+		System.out.println(studentList.getIndex(0).getGrad());
 		Double totalTure = new Double(studentList.getIndex(0).getTotalScore());
 		System.out.println(totalTure);
 		Double total = new Double(studentList.getIndex(0).getAssAcc() + studentList.getIndex(0).getMidAcc() +studentList.getIndex(0).getFinalAcc());
 		System.out.println(studentList.getIndex(0).toString());
 		System.out.println(total);
-	
+		
 		assertEquals(totalTure, total);
 		assertEquals(scores.isUpdate(),true);
 		

@@ -10,7 +10,6 @@ import org.junit.Before;
 import org.junit.Test;
 
 import Controller.ProfileController;
-import model.CourseList;
 import model.Member;
 import model.MemberList;
 

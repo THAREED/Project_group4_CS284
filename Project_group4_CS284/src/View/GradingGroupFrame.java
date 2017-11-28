@@ -27,7 +27,6 @@ import javax.swing.SwingConstants;
 
 import model.Course;
 import model.Member;
-import model.Student;
 import model.StudentList;
 
 public class GradingGroupFrame extends JFrame{
@@ -76,28 +75,7 @@ public class GradingGroupFrame extends JFrame{
 			public void actionPerformed(ActionEvent e) {
 				if (e.getActionCommand().equals("Calculate")) {
 					setTxtEditableFalse();
-					sumGrade = new String[studentList.getSize()];
-					for (int i = 0; i < studentList.getSize(); i++) {
-						if (studentList.getIndex(i).getTotalScore() >= bb2 ) {
-							sumGrade[i] = studentList.getIndex(i).getId() + " A";
-						} else if (studentList.getIndex(i).getTotalScore() >= b2) {
-							sumGrade[i] = studentList.getIndex(i).getId() + " B+";
-						} else if (studentList.getIndex(i).getTotalScore() >= cc2) {
-							sumGrade[i] = studentList.getIndex(i).getId() + " B";
-						} else if (studentList.getIndex(i).getTotalScore() >= c2) {
-							sumGrade[i] = studentList.getIndex(i).getId() + " C+";
-						} else if (studentList.getIndex(i).getTotalScore() >= dd2) {
-							sumGrade[i] = studentList.getIndex(i).getId() + " C";
-						} else if (studentList.getIndex(i).getTotalScore() >= d2) {
-							sumGrade[i] = studentList.getIndex(i).getId() + " D+";
-						} else if (studentList.getIndex(i).getTotalScore() >= f2) {
-							sumGrade[i] = studentList.getIndex(i).getId() + " D";
-						} else {
-							sumGrade[i] = studentList.getIndex(i).getId() + " F";
-						}
-					}
-					saveGrade();
-					
+					sumGrading();					
 				}
 				dispose();
 				try {
@@ -123,7 +101,30 @@ public class GradingGroupFrame extends JFrame{
 		setLocationRelativeTo(null);
 		this.setVisible(true);
 	}
-	
+	public void sumGrading()
+	{
+		sumGrade = new String[studentList.getSize()];
+		for (int i = 0; i < studentList.getSize(); i++) {
+			if (studentList.getIndex(i).getTotalScore() >= bb2 ) {
+				sumGrade[i] = studentList.getIndex(i).getId() + " A";
+			} else if (studentList.getIndex(i).getTotalScore() >= b2) {
+				sumGrade[i] = studentList.getIndex(i).getId() + " B+";
+			} else if (studentList.getIndex(i).getTotalScore() >= cc2) {
+				sumGrade[i] = studentList.getIndex(i).getId() + " B";
+			} else if (studentList.getIndex(i).getTotalScore() >= c2) {
+				sumGrade[i] = studentList.getIndex(i).getId() + " C+";
+			} else if (studentList.getIndex(i).getTotalScore() >= dd2) {
+				sumGrade[i] = studentList.getIndex(i).getId() + " C";
+			} else if (studentList.getIndex(i).getTotalScore() >= d2) {
+				sumGrade[i] = studentList.getIndex(i).getId() + " D+";
+			} else if (studentList.getIndex(i).getTotalScore() >= f2) {
+				sumGrade[i] = studentList.getIndex(i).getId() + " D";
+			} else {
+				sumGrade[i] = studentList.getIndex(i).getId() + " F";
+			}
+		}
+		saveGrade();
+	}
 	public void showTopPage() throws IOException {
 		JPanel usrePanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
 		JLabel nameLabel = new JLabel(member.getName());
