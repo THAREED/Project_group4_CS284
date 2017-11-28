@@ -37,7 +37,7 @@ public class CastToExcelFile
 			for (int i = 0; i < studentList.getSize(); i++) 
 			{
 				ws1.addCell(new Label(0, i, studentList.getIndex(i).getId()));
-				ws1.addCell(new Label(1, i, studentList.getIndex(i).getGrad()));
+				ws1.addCell(new Label(1, i, "     "+studentList.getIndex(i).getGrad()));
 			}
 			workbook.write();
 			workbook.close();

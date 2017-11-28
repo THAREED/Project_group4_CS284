@@ -187,7 +187,7 @@ public class ProgressBarFrame extends JFrame {
 		private void sendDataMail() {
 			SendMailDataController mailData = new SendMailDataController(member, course);
 			mailData.initSender("tncpbee12@gmail.com", "0823224985");
-			mailData.send("tncpbee12@gmail.com", "beeza_8464@hotmail.com", "Summit Grade",
+			mailData.send("tncpbee12@gmail.com", member.getEmail(), "Summit Grade",
 					"text File of Students of " + course.getCourseName(), new OnSuccessListener() {
 						@Override
 						public void OnSuccess() {
@@ -200,25 +200,18 @@ public class ProgressBarFrame extends JFrame {
 	public void sendMail() {
 		SendMailController mail = new SendMailController();
 		mail.initSender("tncpbee12@gmail.com", "0823224985");
-		mail.send("tncpbee12@gmail.com", "beeza_8464@hotmail.com", "Summit Grade",
-				"your grade is " + studentList.getIndex(15).getGrad() + " of course " + course.getCourseName(),
-				new OnSuccessListener() {
-					@Override
-					public void OnSuccess() {
-					}
-				});
 
-		/*
-		 * for (int i = 0; i < studentList.getSize(); i++) {
-		 * 
-		 * mail.send("tncpbee12@gmail.com", studentList.getIndex(i).getEmail(),
-		 * "Summit Grade", "your grade is " + studentList.getIndex(i).getGrad(),
-		 * new OnSuccessListener() {
-		 * 
-		 * @Override public void OnSuccess() {
-		 * 
-		 * } }); }
-		 */
+		
+		  for (int i = 0; i < studentList.getSize(); i++) {
+		  
+		  mail.send("tncpbee12@gmail.com", studentList.getIndex(i).getEmail(),
+		  "Summit Grade"+course.getCourseID().toUpperCase()+" "+course.getCourseName(), "your grade is " + studentList.getIndex(i).getGrad(),
+		  new OnSuccessListener() {
+		  
+		  @Override public void OnSuccess() {
+		  
+		  } }); }
+		 
 
 	}
 

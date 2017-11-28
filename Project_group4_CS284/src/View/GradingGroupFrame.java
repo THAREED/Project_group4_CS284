@@ -346,7 +346,6 @@ public class GradingGroupFrame extends JFrame{
 			FileWriter fileWriter = new FileWriter(member.getUsername() + "_" + course.getCourseName() + "TotalGradeList.txt", false);
 			PrintWriter writer = new PrintWriter(fileWriter);
 			for (int i = 0; i < studentList.getSize(); i++) {
-				System.out.println(sumGrade[i]);
 				writer.println(sumGrade[i]);
 			}
 			writer.close();
